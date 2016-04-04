@@ -20,32 +20,33 @@ public class Control extends HttpServlet
     		throws ServletException, IOException
     {
             HttpSession s = request.getSession(true);
-            String customer_name=(String)request.getParameter("txtName");
+            String Medecin_ID = (String)request.getParameter("txtName");
             String artist_name=(String)request.getParameter("rdArtist");
 
             // CONNEXION
             db= new DataAccess();
             db.openConnection();
 
-            //CUSTOMER
-            CustomerBean customerbean = new CustomerBean();
-            int custid = customerbean.existsCustomer(customer_name, db);
+            //MedecinExiste
+            Medecin Medecin = new Medecin();
+            boolean exist = Medecin.existsMedecin(Medecin_ID, db);
 
-            if (custid == -1)
-            {
-                custid = customerbean.insertCustomer(customer_name, db);
+            if (exist)
+            {    
+            	Medecin.setIDM(Medecin_ID);
+            	Medecin.setNom(Medecin_ID);
+                Medecin.getNom();
+                Medecin.getPrenom();
+                s.setAttribute("PrenomNom", Medecin );
             }
 
-            customerbean.setName(customer_name);
-            customerbean.setCustid(custid);
 
-            s.setAttribute("customerbean", customerbean );
 
 
             //LIKE ARTIST
             LikeArtistBean likeartistbean = new LikeArtistBean();
             
-            if (!likeartistbean.existsLikeArtist(custid, artist_name, db)){
+      /*      if (!likeartistbean.existsLikeArtist(custid, artist_name, db)){
                 likeartistbean.insertLikeArtist(custid, artist_name, db);
             }
 
@@ -65,7 +66,7 @@ public class Control extends HttpServlet
 
 
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/menu.jsp");
-            rd.forward(request,response);
+            rd.forward(request,response);*/
  }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException

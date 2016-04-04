@@ -9,7 +9,7 @@ public class Medecin {
     private ResultSet rs;
     private String nom;
     private String Prenom;
-    private int custid;
+    private String IDM;
     
     public Medecin() {
     }
@@ -18,32 +18,72 @@ public class Medecin {
     {
         return nom;
     }
+    public void setNom(String nom)
+    {
+    	this.nom = nom;
+    }
     public String getPrenom()
     {
-        return nom;
+        return Prenom;
     }
     
-    public int existsCustomer(String name, DataAccess db) {
-        int id = -1;
+    public void setPrenom(String Prenom)
+    {
+    	this.Prenom = Prenom;
+    }
+    public String getIDM()
+    {
+        return IDM;
+    }
+    public void setIDM(String IDM)
+    {
+    	this.IDM = IDM;
+    }
+    
+    public boolean existsMedecin(String idmed, DataAccess db) {
+        Boolean MedExist = false;
         String temp;
         connection = db.getConnection();
 
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT * FROM lab9.customer");
+            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin");
             while (rs.next())
             {
-                temp = rs.getString("name");
+                temp = rs.getString("idm");
                 temp = temp.trim();
-                if (temp.compareTo(name.trim())==0)
-                    id = rs.getInt("custid");
+                if (temp.compareTo(idmed.trim())==0)
+                   MedExist = true;
             }
             rs.close();
             st.close();
             }catch(Exception e){
-                System.out.println("Cant read from customers table");
+                System.out.println("Cant read from medecin table");
             }
-            return id;
+            return MedExist;
+    }
+    
+    public String getNom(String idmed, DataAccess db) {
+        String temp;
+        String nom ="";
+        connection = db.getConnection();
+
+        try{
+            st = connection.createStatement();
+            rs  = st.executeQuery("SELECT IDM FROM CabinetDB.medecin WHERE IDM = idmed");
+            while (rs.next())
+            {
+                temp = rs.getString("nom");
+                temp = temp.trim();
+                if (temp.compareTo(nom.trim())==0)
+                   nom = rs.getString("nom");
+            }
+            rs.close();
+            st.close();
+            }catch(Exception e){
+                System.out.println("Cant read from medecin table");
+            }
+            return nom;
     }
     
 }

@@ -40,27 +40,29 @@ public class Medecin {
     	this.IDM = IDM;
     }
     
-    public boolean existsMedecin(String idmed, DataAccess db) {
+    public Medecin findMedecin(String idmed, DataAccess db) {
         Boolean MedExist = false;
         String temp;
         connection = db.getConnection();
-
+        Medecin med = new Medecin();
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin");
-            while (rs.next())
-            {
+            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin WHERE IDM = ".concat(idmed));
+            /*while (rs.next()){
                 temp = rs.getString("idm");
                 temp = temp.trim();
                 if (temp.compareTo(idmed.trim())==0)
                    MedExist = true;
-            }
+            }*/
+            
+            //Créer un nouveau médecin.
+            
             rs.close();
             st.close();
             }catch(Exception e){
                 System.out.println("Cant read from medecin table");
             }
-            return MedExist;
+            return med;
     }
     
     public String getNom(String idmed, DataAccess db) {
@@ -71,8 +73,7 @@ public class Medecin {
         try{
             st = connection.createStatement();
             rs  = st.executeQuery("SELECT IDM FROM CabinetDB.medecin WHERE IDM = idmed");
-            while (rs.next())
-            {
+            while (rs.next()){
                 temp = rs.getString("nom");
                 temp = temp.trim();
                 if (temp.compareTo(nom.trim())==0)
@@ -85,5 +86,4 @@ public class Medecin {
             }
             return nom;
     }
-    
 }

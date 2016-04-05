@@ -10,13 +10,16 @@
     <body>
         <center><H1>Médecin </H1></center>
 
-       <form action="Control" method="POST">
+       	<form action="Control" method="POST">
             <p align="center">Votre ID:
                <input type="text" size="20" name="txtName">
             </p>
             <p align="Center">
-                <input type="submit" name="cmdFan" value="Confirmer">
-            </p>        </form>
+               <input type="submit" name="cmdFan" value="Confirmer">
+            </p>
+		</form>
+		
+		
 
     </body>
 </html>

@@ -5,11 +5,9 @@ import model.connection.DataAccess;
 import model.dbbeans.*;
 
 import java.io.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
-
-
-
 
 public class Control extends HttpServlet
 {
@@ -21,30 +19,44 @@ public class Control extends HttpServlet
     {
             HttpSession s = request.getSession(true);
             String Medecin_ID = (String)request.getParameter("txtName");
-            String artist_name=(String)request.getParameter("rdArtist");
 
             // CONNEXION
             db= new DataAccess();
             db.openConnection();
 
             //MedecinExiste
-            Medecin Medecin = new Medecin();
-            boolean exist = Medecin.existsMedecin(Medecin_ID, db);
+            //Medecin medecin = new Medecin();
+            //boolean exist = medecin.existsMedecin(Medecin_ID, db);
+            
+            Medecin medecin = findMedecin(Medecin_ID, db);
 
             if (exist)
             {    
-            	Medecin.setIDM(Medecin_ID);
-            	Medecin.setNom(Medecin_ID);
-                Medecin.getNom();
-                Medecin.getPrenom();
-                s.setAttribute("PrenomNom", Medecin );
+            	//À changer
+            	medecin.setIDM(Medecin_ID);
+            	medecin.setNom(Medecin_ID);
+                medecin.getNom();
+                medecin.getPrenom();
+                medecin.setDataAccess(db);
+                s.setAttribute("Medecin", medecin);
+                
+              ///SESION
+                s.setAttribute("key","000");
+                s.setMaxInactiveInterval(1000);
+
+                
+                s.setAttribute("dataaccess",db);
+                s.setAttribute("db",db);
+
+                db.closeConsult();
+                
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
+                rd.forward(request,response);
             }
 
 
+            
 
-
-            //LIKE ARTIST
-            LikeArtistBean likeartistbean = new LikeArtistBean();
             
       /*      if (!likeartistbean.existsLikeArtist(custid, artist_name, db)){
                 likeartistbean.insertLikeArtist(custid, artist_name, db);

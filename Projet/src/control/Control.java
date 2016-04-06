@@ -32,12 +32,6 @@ public class Control extends HttpServlet
 
             if (medecin != null)
             {    
-            	//À changer
-            	/*medecin.setIDM(Medecin_ID);
-            	medecin.setNom(Medecin_ID);
-                medecin.getNom();
-                medecin.getPrenom();
-                medecin.setDataAccess(db);*/
                 s.setAttribute("Medecin", medecin);
                 
               ///SESION
@@ -53,32 +47,11 @@ public class Control extends HttpServlet
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
                 rd.forward(request,response);
             }
-
-
-            
-
-            
-      /*      if (!likeartistbean.existsLikeArtist(custid, artist_name, db)){
-                likeartistbean.insertLikeArtist(custid, artist_name, db);
+            else{
+            	   RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Connexion.jsp");
+            	   rd.forward(request,response);
             }
 
-            likeartistbean.setDataAccess(db);
-            
-            s.setAttribute("likeartistbean", likeartistbean );
-            s.setAttribute("dataaccess",db);
-            s.setAttribute("db",db);
-
-
-            ///SESION
-            s.setAttribute("key","000");
-            s.setMaxInactiveInterval(1000);
-
-
-            db.closeConsult();
-
-
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/menu.jsp");
-            rd.forward(request,response);*/
  }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException

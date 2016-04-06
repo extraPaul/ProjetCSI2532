@@ -1,5 +1,5 @@
 <% session = request.getSession(false);
    
    session.invalidate();
-   response.sendRedirect("index.jsp");
+   response.sendRedirect("Connexion.jsp");
 %>

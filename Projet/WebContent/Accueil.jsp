@@ -14,12 +14,14 @@ if(key !=null){%>
         <body>
             <center><H1>Accueil</H1></center>
         <p align="left">
-             Bonjour médecin
-        <jsp:getProperty name="Medecin" property="nom" />
+             Bonjour,
         <jsp:getProperty name="Medecin" property="prenom" />
+        <jsp:getProperty name="Medecin" property="nom" />
         </p>
+            <p align="Center">
+               <input type="submit" name="cmdFan" value="Deconnexion">
+            </p>
             <ul>
-                <li><a href="LikeArtist.jsp"> See the artist fans </a></li>
                 <li><a href="closesession.jsp"> Log Out </a></li>
             </ul>
          </body>

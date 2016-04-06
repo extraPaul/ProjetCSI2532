@@ -4,14 +4,19 @@ import java.sql.*;
 import model.connection.DataAccess;
 
 public class Medecin {
-    private Connection connection;
     private Statement st;
     private ResultSet rs;
     private String nom;
-    private String Prenom;
-    private String IDM;
+    private String prenom;
+    private String idM;
     
     public Medecin() {
+    }
+    
+    public Medecin(String idm, String nom, String prenom) {
+    	this.idM = idm;
+    	this.nom = nom;
+    	this.prenom = prenom;
     }
     
     public String getNom()
@@ -24,43 +29,36 @@ public class Medecin {
     }
     public String getPrenom()
     {
-        return Prenom;
+        return prenom;
     }
     
     public void setPrenom(String Prenom)
     {
-    	this.Prenom = Prenom;
+    	this.prenom = Prenom;
     }
     public String getIDM()
     {
-        return IDM;
+        return idM;
     }
     public void setIDM(String IDM)
     {
-    	this.IDM = IDM;
+    	this.idM = IDM;
     }
     
     public Medecin findMedecin(String idmed, DataAccess db) {
-        Boolean MedExist = false;
-        String temp;
-        connection = db.getConnection();
-        Medecin med = new Medecin();
+        Connection connection = db.getConnection();
+        Medecin med = null;
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin WHERE IDM = ".concat(idmed));
-            /*while (rs.next()){
-                temp = rs.getString("idm");
-                temp = temp.trim();
-                if (temp.compareTo(idmed.trim())==0)
-                   MedExist = true;
-            }*/
-            
-            //Créer un nouveau médecin.
+            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin, CabinetDB.personne WHERE idp = idm AND idm = '".concat(idmed).concat("'"));
+            if(rs.next())
+            	med = new Medecin(idmed, rs.getString("nom"), rs.getString("prenom"));
             
             rs.close();
             st.close();
             }catch(Exception e){
                 System.out.println("Cant read from medecin table");
+                System.out.println(e);
             }
             return med;
     }
@@ -68,7 +66,7 @@ public class Medecin {
     public String getNom(String idmed, DataAccess db) {
         String temp;
         String nom ="";
-        connection = db.getConnection();
+        Connection connection = db.getConnection();
 
         try{
             st = connection.createStatement();

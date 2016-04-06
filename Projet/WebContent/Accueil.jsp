@@ -5,8 +5,7 @@
    String key=(String) session.getAttribute("key");
 
 if(key !=null){%>
-<jsp:useBean id="Prenom"  class="model.dbbeans.Medecin" scope="session" />
-<jsp:useBean id="nom"  class="model.dbbeans.Medecin" scope="session" />
+<jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
 
     <html>
         <head>
@@ -17,7 +16,7 @@ if(key !=null){%>
         <p align="left">
              Bonjour médecin
         <jsp:getProperty name="Medecin" property="nom" />
-        <jsp:getProperty name="Medecin" property="Prenom" />
+        <jsp:getProperty name="Medecin" property="prenom" />
         </p>
             <ul>
                 <li><a href="LikeArtist.jsp"> See the artist fans </a></li>

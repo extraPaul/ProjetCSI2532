@@ -18,7 +18,7 @@ public class Control extends HttpServlet
     		throws ServletException, IOException
     {
             HttpSession s = request.getSession(true);
-            String Medecin_ID = (String)request.getParameter("txtName");
+            String medecin_ID = (String)request.getParameter("txtName");
 
             // CONNEXION
             db= new DataAccess();
@@ -28,16 +28,16 @@ public class Control extends HttpServlet
             //Medecin medecin = new Medecin();
             //boolean exist = medecin.existsMedecin(Medecin_ID, db);
             
-            Medecin medecin = findMedecin(Medecin_ID, db);
+            Medecin medecin = new Medecin().findMedecin(medecin_ID, db);
 
-            if (exist)
+            if (medecin != null)
             {    
             	//À changer
-            	medecin.setIDM(Medecin_ID);
+            	/*medecin.setIDM(Medecin_ID);
             	medecin.setNom(Medecin_ID);
                 medecin.getNom();
                 medecin.getPrenom();
-                medecin.setDataAccess(db);
+                medecin.setDataAccess(db);*/
                 s.setAttribute("Medecin", medecin);
                 
               ///SESION

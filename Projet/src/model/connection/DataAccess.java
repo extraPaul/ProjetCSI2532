@@ -21,10 +21,7 @@ public class DataAccess
     
 
     public void openConnection() {
-        try
-        {
-         
-
+        try{
             Class.forName("org.postgresql.Driver");
             // connection = DriverManager.getConnection("jdbc:postgresql://acadb:5432/svale054","user","pwd");
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:15432/CabinetDB","postgres","4XNR002V");

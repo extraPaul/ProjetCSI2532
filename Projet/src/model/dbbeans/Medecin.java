@@ -1,5 +1,7 @@
 package model.dbbeans;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 import model.connection.DataAccess;
 
@@ -51,11 +53,14 @@ public class Medecin {
         try{
             st = connection.createStatement();
             rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin, CabinetDB.personne WHERE idp = idm AND idm = '".concat(idmed).concat("'"));
+            
+            System.out.println("Num: " + rs.getFetchSize());
             if(rs.next())
             	med = new Medecin(idmed, rs.getString("nom"), rs.getString("prenom"));
             
             rs.close();
             st.close();
+            
             }catch(Exception e){
                 System.out.println("Cant read from medecin table");
                 System.out.println(e);
@@ -63,25 +68,26 @@ public class Medecin {
             return med;
     }
     
-    public String getNom(String idmed, DataAccess db) {
-        String temp;
-        String nom ="";
+    
+    public ArrayList<Consultation> getConsultations(String idmed, DataAccess db) {
         Connection connection = db.getConnection();
-
+        ArrayList<Consultation> cons = new ArrayList<Consultation>();
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT IDM FROM CabinetDB.medecin WHERE IDM = idmed");
-            while (rs.next()){
-                temp = rs.getString("nom");
-                temp = temp.trim();
-                if (temp.compareTo(nom.trim())==0)
-                   nom = rs.getString("nom");
+            rs  = st.executeQuery("SELECT  * FROM Personne, Consultation WHERE Consultation.IDM = Personne.IDMAND Personne.IDM = '".concat(idmed).concat("'"));
+            
+            while(rs.next()){
+            	cons.add(new Consultation(rs.getString("idcons"), rs.getDate("datec"), rs.getTime("heure"), rs.getTime("duree"), rs.getString("raison")));
             }
+            
             rs.close();
             st.close();
             }catch(Exception e){
                 System.out.println("Cant read from medecin table");
+                System.out.println(e);
             }
-            return nom;
+            return cons;
     }
+    
+    
 }

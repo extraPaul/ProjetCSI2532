@@ -5,6 +5,7 @@ import model.connection.DataAccess;
 import model.dbbeans.*;
 
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,24 +22,20 @@ public class Control extends HttpServlet
             String medecin_ID = (String)request.getParameter("txtName");
 
             // CONNEXION
-            db= new DataAccess();
+            db = new DataAccess();
             db.openConnection();
-
-            //MedecinExiste
-            //Medecin medecin = new Medecin();
-            //boolean exist = medecin.existsMedecin(Medecin_ID, db);
             
             Medecin medecin = new Medecin().findMedecin(medecin_ID, db);
 
             if (medecin != null)
             {    
-            	//À changer
-            	/*medecin.setIDM(Medecin_ID);
-            	medecin.setNom(Medecin_ID);
-                medecin.getNom();
-                medecin.getPrenom();
-                medecin.setDataAccess(db);*/
                 s.setAttribute("Medecin", medecin);
+                
+                //For testing
+                ArrayList<Patient> patients = medecin.getPatients(db);
+                for(int i = 0; i < patients.size(); i++){
+                	System.out.println(patients.get(i).toString());
+                }
                 
               ///SESION
                 s.setAttribute("key","000");

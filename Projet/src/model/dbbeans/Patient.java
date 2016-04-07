@@ -34,27 +34,7 @@ public class Patient {
 	    	this.dateNaissance = dateNaissance;
 	    	this.sexe = sexe;
 	    }
-	    public ArrayList<Patient> findPatient(String idmed, DataAccess db) {
-	    String temp;
-        String nom ="";
-        Connection connection = db.getConnection();
-        ArrayList<Patient> patient = new ArrayList<Patient>();
-        try{
-            st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM Personne,Patient WHERE Patient.IDM = ' AND Personne.IDP = Patient.IDPat;".concat(idmed.concat("'")));
-
-            while(rs.next())
-            {
-                patient.add(new Patient(rs.getString("IDPat"),rs.getString("nom"), rs.getString("prenom"),rs.getInt("Num"),rs.getString("Rue"),rs.getString("Ville"),rs.getString("numTelephone"),rs.getString("NAS"),rs.getDate("dateNaissance"),rs.getString("sexe")));         	
-            }
-            rs.close();
-            st.close();
-            }catch(Exception e){
-                System.out.println("Cant read from Personne or Patient table");
-            }
-            return patient;
-    
-	    }
+	    
 		public Statement getSt() {
 			return st;
 		}
@@ -126,5 +106,35 @@ public class Patient {
 		}
 		public void setSexe(String sexe) {
 			this.sexe = sexe;
+		}
+		
+		public ArrayList<Prescription> getPrescriptions(DataAccess db) {
+	        Connection connection = db.getConnection();
+	        ArrayList<Prescription> pres = new ArrayList<Prescription>();
+	        try{
+	            st = connection.createStatement();
+	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presexamen pE, CabinetDB.consultation c WHERE p.consultation = c.idcons"
+	            		+ "AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"'");
+	            while(rs.next()){
+	            	pres.add(new PresExam(rs.getString("idprese"), rs.getString("idcons"), rs.getString("nom")));
+	            }
+	            
+	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presmedicament pM, CabinetDB.consultation c WHERE p.consultation = c.idcons"
+	            		+ "AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"'");
+	            while(rs.next()){
+	            	pres.add(new PresMed(rs.getString("idpresm"), rs.getString("idcons"), rs.getDate("duréevalidite"), rs.getString("idmed")));
+	            }
+	            rs.close();
+	            st.close();
+	            }catch(Exception e){
+	                System.out.println("Cant read from Personne or Patient table");
+	                System.out.println(e);
+	            }
+	        return pres;
+	    }
+		
+		//Optionnelle...? Ajouter autres attribus? 
+		public String toString(){
+			return ("Patient " + this.idP + ", " + this.prenom + " " + this.nom);
 		}
 }

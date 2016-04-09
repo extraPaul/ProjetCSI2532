@@ -12,12 +12,14 @@ public class Medecin {
     private String nom;
     private String prenom;
     private String idM;
-    private String patients = "";
+    private String patients;
     
     public Medecin() {
+    	patients = "";
     }
     
     public Medecin(String idm, String nom, String prenom) {
+    	patients = "";
     	this.idM = idm;
     	this.nom = nom;
     	this.prenom = prenom;

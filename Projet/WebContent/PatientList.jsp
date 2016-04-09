@@ -4,6 +4,7 @@
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
+   System.out.println("Opening Patient List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />

@@ -203,15 +203,16 @@ public class Medecin {
         try{
             st = connection.createStatement();
             //Check attribues again...
-            rs  = st.executeQuery("SELECT  p.IDPat,p.nom, p.prenom,p.Num,p.Rue,p.Ville,p.numTelephone,p.NAS,p.dateNaissance,p.sexe"
-            		+ "FROM CabinetDB.personne p,CabinetDB.patient, CabinetDB.pathologie, CabinetDB.dureepatho"
+            //NEEDS TO BE CHANGED to match PostgreSQL sintax
+            rs  = st.executeQuery("SELECT  p.IDP,p.nom, p.prenom,p.Num,p.Rue,p.Ville,p.numTelephone,patient.NAS,patient.dateNaissance,patient.sexe"
+            		+ "FROM CabinetDB.personne p,CabinetDB.patient, CabinetDB.pathologie, CabinetDB.dureepatho, CabinetDB."
             		+ "WHERE p.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"' AND dureepatho.idpat = p.IDP AND pathologie.idpatho = dureepatho.idpatho"
-            		+ "AND MATCH (p.IDPat,p.nom, p.prenom,p.Num,p.Rue,p.Ville,p.numTelephone,p.NAS,p.dateNaissance,pathologie.nom)"
+            		+ "AND MATCH (p.IDPat,p.nom, p.prenom,p.Num,p.Rue,p.Ville,p.numTelephone,patient.NAS,patient.dateNaissance,pathologie.nom)"
             		+ "AGAINST ('" + search + "' IN BOOLEAN MODE);");
 
             while(rs.next())
             {
-                patient.add(new Patient(rs.getString("IDPat"),rs.getString("nom"), rs.getString("prenom"),rs.getInt("Num"),rs.getString("Rue"),rs.getString("Ville"),rs.getString("numTelephone"),rs.getString("NAS"),rs.getDate("dateNaissance"),rs.getString("sexe")));         	
+                patient.add(new Patient(rs.getString("IDP"),rs.getString("nom"), rs.getString("prenom"),rs.getInt("Num"),rs.getString("Rue"),rs.getString("Ville"),rs.getString("numTelephone"),rs.getString("NAS"),rs.getDate("dateNaissance"),rs.getString("sexe")));         	
             }
             rs.close();
             st.close();

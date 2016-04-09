@@ -13,12 +13,13 @@ import javax.servlet.http.*;
 public class Control extends HttpServlet
 {
     private DataAccess db;
+    private HttpSession s;
 
     
     private void processAction(HttpServletRequest request,HttpServletResponse response) 
     		throws ServletException, IOException
     {
-            HttpSession s = request.getSession(true);
+            s = request.getSession(true);
             String medecin_ID = (String)request.getParameter("username");
 
             // CONNEXION
@@ -38,7 +39,7 @@ public class Control extends HttpServlet
                 }
                 
               ///SESION
-                s.setAttribute("key","000");
+                s.setAttribute("key", medecin_ID);
                 s.setMaxInactiveInterval(1000);
 
                 
@@ -82,7 +83,13 @@ public class Control extends HttpServlet
     {
         processAction(request,response);
     }
-
+    
+    public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
+    {
+        Medecin med = (Medecin) s.getAttribute("Medecin");
+        med.getPatientsString(db);
+        s.setAttribute("Medecin", med);
+    }
     
     public void destroy()
     {       

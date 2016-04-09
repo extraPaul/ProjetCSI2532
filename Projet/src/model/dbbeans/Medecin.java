@@ -12,6 +12,7 @@ public class Medecin {
     private String nom;
     private String prenom;
     private String idM;
+    private String patients = "";
     
     public Medecin() {
     }
@@ -86,6 +87,48 @@ public class Medecin {
                 System.out.println(e);
             }
         return patient;
+    }
+    
+    public String getPatientsString(DataAccess db) {
+        connection = db.getConnection();
+        
+        try{
+            st = connection.createStatement();
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"'");
+        }catch(Exception e){
+            System.out.println("Cant read from Personne or Patient table");
+            System.out.println(e);
+        }
+        
+        try{
+            while (rs.next())
+            {
+                patients+="<tr><tr><td>"
+                               + rs.getString("IDPat")
+                               + "</td><td>"
+                               + rs.getString("nom")
+                               +"</td></tr>"
+                               + rs.getString("prenom")
+                               +"</td></tr>"
+                               + rs.getInt("Num")
+                               +"</td></tr>"
+                               + rs.getString("Rue")
+                               +"</td></tr>"
+                               + rs.getString("Ville")
+                               +"</td></tr>"
+                               + rs.getString("numTelephone")
+                               +"</td></tr>"
+                               + rs.getString("NAS")
+                               +"</td></tr>"
+                               + rs.getDate("dateNaissance")
+                               +"</td></tr>"
+                               + rs.getString("sexe")
+                               +"</td></tr>";
+            }
+        }catch(Exception e){
+            System.out.println("Error creating table "+e);
+        }
+        return patients;
     }
     
     

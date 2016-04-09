@@ -30,6 +30,10 @@ public class Control extends HttpServlet
 
             if (medecin != null)
             {    
+            	//Get patient string should maybe only be done when needed?
+            	System.out.println(medecin.getPatientsString(db));
+            	
+            	
                 s.setAttribute("Medecin", medecin);
                 
                 //For testing

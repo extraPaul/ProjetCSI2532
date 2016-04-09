@@ -44,7 +44,7 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
             <h1>Welcome to PAJME</h1>
             <p>PAJME is a medical information platform and stands for Paul, Alex, Jon Medical Encoding. </p>
-            <p><a class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <p>Hi Doctor <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" /></p>
         
             
@@ -88,7 +88,7 @@ if(key !=null){%>
                         		<option value="PaPlaceholder 6">PaPlaceholder 6</option>
                         		<option value="PaPlaceholder 7">PaPlaceholder 7</option>
                         	</select> -->
-                        	<button class="leftMargarine">Browse patients</button>
+                        	<a href="PatientList.jsp" class="leftMargarine">Browse patients</a>
                         </form>    
                         </p>
                     </div>

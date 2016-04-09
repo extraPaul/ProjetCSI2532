@@ -1,4 +1,4 @@
- <%@page import="model.dbbeans.Medecin"%>
+
 <meta http-equiv="Cache-Control" content="no-cache" />
 
 
@@ -49,23 +49,10 @@ if(key !=null){%>
             <p>View another doctor's patients:</p>
             <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form>
             <p>Doctor <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" />'s patients</p>
-        	<table>
-
-
-<table border=1>
-                <tr>
-                    <td>
-                        <b>Customer</b>
-                    </td>
-                    <td>
-                        <b>Artist</b>
-                    </td>
-                </tr>
-                <jsp:getProperty name="likeartistbean" property="likeArtistList" />
-            </table>
+        	<table border = 1>
 			
 
-        	<tr><form action="Control" method="get" >
+        	<tr>
         		<td>
         			<b>idPatient</b>
         		</td>
@@ -99,7 +86,6 @@ if(key !=null){%>
         		<td><button name="patViewDetails">View patient details</button></td>
         	</tr>
         	
-        	</form>
         	<jsp:getProperty name="Medecin" property="patients" />
         	</table>
             

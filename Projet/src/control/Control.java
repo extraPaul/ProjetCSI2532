@@ -19,7 +19,7 @@ public class Control extends HttpServlet
     		throws ServletException, IOException
     {
             HttpSession s = request.getSession(true);
-            String medecin_ID = (String)request.getParameter("txtName");
+            String medecin_ID = (String)request.getParameter("username");
 
             // CONNEXION
             db = new DataAccess();

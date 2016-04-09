@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+
+<meta http-equiv="Cache-Control" content="no-cache" />
+
+
+ <% session = request.getSession(false);
+   String key=(String) session.getAttribute("key");
+   System.out.println("Opening Patient List");
+
+if(key !=null){%>
+<jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
+
+ 
 <html lang="en">
 
 <head>
@@ -34,24 +45,49 @@
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
             <h1>Welcome to PAJME</h1>
-            <a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a>
-             <br>
-            <a href="Accueil.jsp">Retourner vers l'accueil</a>
-            <br><br>
+            <p>PAJME is a medical information platform and stands for Paul, Alex, Jon Medical Encoding. </p>
+            <p><a class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <p>View another doctor's patients:</p>
             <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form>
-            <br><br>
             <p>Doctor <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" />'s patients</p>
-        	<table>
+        	<table border = 1>
+			
 
-
-<!------------------------Example table bit-------------------------------->
-        	<tr><form action="Control" method="get" >
-        		<td> patient toString</td>
-        		<td><button name="patViewDetails">View patient details</button></td>
+        	<tr>
+        		<td>
+        			idPatient
+        		</td>
+        		<td>
+        			Nom
+        		</td>
+        		<td>
+        			Prenom
+        		</td>
+        		<td>
+        			Num
+        		</td>
+        		<td>
+        			Rue
+        		</td>
+        		<td>
+        			Ville
+        		</td>
+        		<td>
+        			numTelephone
+        		</td>
+        		<td>
+        			NAS
+        		</td>
+        		<td>
+        			dateNaissance
+        		</td>
+        		<td>
+        			Sexe
+        		</td>
         	</tr>
         	
-        	</form></table>
+        	<jsp:getProperty name="Medecin" property="patients" />
+        	</table>
             
             
             
@@ -80,3 +116,9 @@
 </body>
 
 </html>
+
+
+
+ <%}else{
+     response.sendRedirect("error.jsp");
+}%>

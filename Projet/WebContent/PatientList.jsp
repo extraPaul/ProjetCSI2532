@@ -51,40 +51,37 @@ if(key !=null){%>
             <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form>
             <p>Doctor <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" />'s patients</p>
         	<table border = 1>
-			
-
         	<tr>
         		<td>
-        			<b>idPatient</b>
+        			idPatient
         		</td>
         		<td>
-        			<b>Nom</b>
+        			Nom
         		</td>
         		<td>
-        			<b>Prenom</b>
+        			Prenom
         		</td>
         		<td>
-        			<b>Num</b>
+        			Num
         		</td>
         		<td>
-        			<b>Rue</b>
+        			Rue
         		</td>
         		<td>
-        			<b>Ville</b>
+        			Ville
         		</td>
         		<td>
-        			<b>numTelephone</b>
+        			numTelephone
         		</td>
         		<td>
-        			<b>NAS</b>
+        			NAS
         		</td>
         		<td>
-        			<b>dateNaissance</b>
+        			dateNaissance
         		</td>
         		<td>
-        			<b>Sexe</b>
+        			Sexe
         		</td>
-        		<td><button name="patViewDetails">View patient details</button></td>
         	</tr>
         	
         	<jsp:getProperty name="Medecin" property="patients" />

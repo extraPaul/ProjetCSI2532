@@ -19,69 +19,48 @@ public class Control extends HttpServlet
     private void processAction(HttpServletRequest request,HttpServletResponse response) 
     		throws ServletException, IOException
     {
-            s = request.getSession(true);
-            String medecin_ID = (String)request.getParameter("username");
+    	s = request.getSession(true);
+        String medecin_ID = (String)request.getParameter("username");
 
-            // CONNEXION
-            db = new DataAccess();
-            db.openConnection();
-            
-            Medecin medecin = new Medecin().findMedecin(medecin_ID, db);
+        // CONNEXION
+        db = new DataAccess();
+        db.openConnection();
+        
+        Medecin medecin = new Medecin().findMedecin(medecin_ID, db);
 
-            if (medecin != null)
-            {    
-            	//Get patient string should maybe only be done when needed?
-            	System.out.println(medecin.getPatientsString(db));
-            	
-            	
-                s.setAttribute("Medecin", medecin);
-                
-                //For testing
-                ArrayList<Patient> patients = medecin.getPatients(db);
-                for(int i = 0; i < patients.size(); i++){
-                	System.out.println(patients.get(i).toString());
-                }
-                
-              ///SESION
-                s.setAttribute("key", medecin_ID);
-                s.setMaxInactiveInterval(1000);
-
-                
-                s.setAttribute("dataaccess",db);
-                s.setAttribute("db",db);
-
-                db.closeConsult();
-                
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
-                rd.forward(request,response);
+        if (medecin != null)
+        {    
+         //Get patient string should maybe only be done when needed?
+         System.out.println();
+         System.out.println(medecin.getPatientsString(db));
+         
+         
+            s.setAttribute("Medecin", medecin);
+            //For testing
+            ArrayList<Patient> patients = medecin.getPatients(db);
+            for(int i = 0; i < patients.size(); i++){
+             System.out.println(patients.get(i).toString());
             }
-
+            ///SESION
+            s.setAttribute("key", medecin_ID);
+            s.setMaxInactiveInterval(1000);
 
             
-
-            
-      /*      if (!likeartistbean.existsLikeArtist(custid, artist_name, db)){
-                likeartistbean.insertLikeArtist(custid, artist_name, db);
-            }
-
-            likeartistbean.setDataAccess(db);
-            
-            s.setAttribute("likeartistbean", likeartistbean );
             s.setAttribute("dataaccess",db);
             s.setAttribute("db",db);
 
-
-            ///SESION
-            s.setAttribute("key","000");
-            s.setMaxInactiveInterval(1000);
-
-
             db.closeConsult();
-
-
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/menu.jsp");
-            rd.forward(request,response);*/
- }
+            
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
+            rd.forward(request,response);
+        }
+            else{
+             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Connexion.jsp");
+                rd.forward(request,response);
+          
+            }
+            
+        }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {

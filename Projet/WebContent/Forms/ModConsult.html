@@ -4,7 +4,6 @@
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
-   System.out.println("Opening Consultation List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
@@ -23,10 +22,10 @@ if(key !=null){%>
     <title>PAJME</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/heroic-features.css" rel="stylesheet">
+    <link href="../css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,45 +43,24 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Consultation information</h1>
+          	<h1>Modify a consultation</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-            <p>View another doctor's consultations (by ID):</p>
-            <form action="Control" method="post" ><input type="text" name="drConsultInput"> <button name="drConsultInputSubmit">View patient list</button></form>
-            <p>Consultations</p>
-        	<table border = 1>
-        		
-        	<tr>
-        		<td class="hockeyPads">
-        			idConsultation
-        		</td>
-        		<td class="hockeyPads">
-        			Date
-        		</td>
-        		<td class="hockeyPads">
-        			Temps
-        		</td>
-        		<td class="hockeyPads">
-        			Durée
-        		</td>
-        		<td class="hockeyPads">
-        			Raison
-        		</td>
-        	</tr>
+           
         	
-<!--         	<jsp:getProperty name="Medecin" property="patients" /> -->
-        	</table>
-            
-        	<br><br>
-             <p>Add a prescription by consultation ID:</p>
-            <form action="Control" method="post" ><input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button></form>
-            
-            <br><br>
-             <p>Modify a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultModInput"> <button name="ConsultModSubmit">Modify</button></form>
-            
-            <br><br>
-             <p>Delete a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultDelInput"> <button name="ConsultDelSubmit">Delete</button></form>
+        	<br>
+             
+            <form action="Control" method="post" >
+            		<table>
+        			<tr><td>idConsult:</td>		    <td><input type="text" name="ModConsultId"> </td></tr>
+        			<tr><td>Date:</td>	 			<td><input type="text" name="ModConsultNom"> </td></tr>
+        			<tr><td>Temps :</td>	 		<td><input type="text" name="ModConsultPrenom"> </td></tr>
+        			<tr><td>Durée:</td>	 			<td><input type="text" name="ModConsultNum"> </td></tr>
+        			<tr><td>Raison:</td>	 			<td><input type="text" name="ModConsultRue"> </td></tr>
+            		</table>
+            		<br>
+            		<button name="ModConsultSubmit">Submit</button>
+            </form>
+
         
             
             

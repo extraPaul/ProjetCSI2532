@@ -46,6 +46,8 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
           	<h1>Consultation information</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <a href="accueil.jsp">Retourner a l'accueil</a>
+            <br><br>
             <p>View another doctor's consultations (by ID):</p>
             <form action="Control" method="post" ><input type="text" name="drConsultInput"> <button name="drConsultInputSubmit">View patient list</button></form>
             <p>Consultations</p>
@@ -67,14 +69,41 @@ if(key !=null){%>
         		<td class="hockeyPads">
         			Raison
         		</td>
+<!--         		<td class="hockeyPads"> -->
+<!--         			Ajouter prescription -->
+<!--         		</td> -->
         	</tr>
+<!--         	<tr> -->
+<!--         		<td class="hockeyPads"> -->
+<!--         			C001 -->
+<!--         		</td> -->
+<!--         		<td class="hockeyPads"> -->
+<!--         			ExDate -->
+<!--         		</td> -->
+<!--         		<td class="hockeyPads"> -->
+<!--         			ExTemps -->
+<!--         		</td> -->
+<!--         		<td class="hockeyPads"> -->
+<!--         			ExDurée -->
+<!--         		</td> -->
+<!--         		<td class="hockeyPads"> -->
+<!--         			ExRaison -->
+<!--         		</td><td class="hockeyPads"> -->
+<!--         			<form action="Control" type="POST"> -->
+<!--         			<select><option>Type 1</option><option>Type 2</option></select><button>Ajout</button> -->
+<!--         			</form> -->
+<!--         		</td> -->
+<!--         	</tr> -->
         	
 <!--         	<jsp:getProperty name="Medecin" property="patients" /> -->
         	</table>
             
         	<br><br>
              <p>Add a prescription by consultation ID:</p>
-            <form action="Control" method="post" ><input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button></form>
+            <form action="Control" method="post" >
+            	<select><option>Examen</option><option>Medicament</option></select>
+           		<input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button>
+            </form>
             
             <br><br>
              <p>Modify a consultation by ID:</p>

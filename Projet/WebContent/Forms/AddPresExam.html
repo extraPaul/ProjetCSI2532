@@ -43,7 +43,7 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Modify a consultation</h1>
+          	<h1>Add a prescription</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
            <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
@@ -52,14 +52,12 @@ if(key !=null){%>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idConsult:</td>		    <td><input type="text" name="ModConsultId"> </td></tr>
-        			<tr><td>Date:</td>	 			<td><input type="text" name="ModConsultNom"> </td></tr>
-        			<tr><td>Temps :</td>	 		<td><input type="text" name="ModConsultPrenom"> </td></tr>
-        			<tr><td>Durée:</td>	 			<td><input type="text" name="ModConsultNum"> </td></tr>
-        			<tr><td>Raison:</td>	 			<td><input type="text" name="ModConsultRue"> </td></tr>
+        			<tr><td>idPres:</td>		    <td><input type="text" name="AddPresExamId"> </td></tr>
+        			<tr><td>idCons:</td>	 			<td><input type="text" name="AddPresIdCons"> </td></tr>
+        			<tr><td>Name :</td>	 		<td><input type="text" name="AddPresExamNom"> </td></tr>
             		</table>
             		<br>
-            		<button name="ModConsultSubmit">Submit</button>
+            		<button name="AddPresExamSubmit">Submit</button>
             </form>
 
         

@@ -18,6 +18,8 @@ public class Patient {
 	    private String nas;  
 	    private Date dateNaissance;
 	    private String sexe;
+	    private String prescriptionsExam;
+	    private String prescriptionsMed;
 	    
 	    public Patient(){
 	    	
@@ -107,6 +109,12 @@ public class Patient {
 		public void setSexe(String sexe) {
 			this.sexe = sexe;
 		}
+		public String getPrescriptionsExam(){
+			return prescriptionsExam;
+		}
+		public String getPrescriptionsMed(){
+			return prescriptionsMed;
+		}
 		
 		public ArrayList<Prescription> getPrescriptions(DataAccess db) {
 	        Connection connection = db.getConnection();
@@ -131,6 +139,56 @@ public class Patient {
 	                System.out.println(e);
 	            }
 	        return pres;
+	    }
+		
+		public String getPrescriptionsExamen(DataAccess db) {
+	        Connection connection = db.getConnection();
+	        try{
+	            st = connection.createStatement();
+	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presexamen pE, CabinetDB.consultation c WHERE p.consultation = c.idcons"
+	            		+ "AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"'");
+	            while(rs.next()){
+	            	prescriptionsExam+="<tr><td>"
+	                        + rs.getString("idpress")
+	                        + "</td><td>"
+	                        + rs.getString("idcons")
+	                        +"</td><td>"
+	                        + rs.getString("nom")
+	                        +"</td></tr>";
+	            }
+	            rs.close();
+	            st.close();
+	            }catch(Exception e){
+	                System.out.println("Cant read from Personne or Patient table");
+	                System.out.println(e);
+	            }
+	        return prescriptionsExam;
+	    }
+		
+		public String getPrescriptionsMed(DataAccess db) {
+	        Connection connection = db.getConnection();
+	        try{
+	            st = connection.createStatement();
+	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presmedicament pM, CabinetDB.consultation c WHERE p.consultation = c.idcons"
+	            		+ "AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"'");
+	            while(rs.next()){
+	            	prescriptionsMed+="<tr><td>"
+	                        + rs.getString("idpresm")
+	                        + "</td><td>"
+	                        + rs.getString("idcons")
+	                        +"</td><td>"
+	                        + rs.getString("duréevalidite")
+	                        +"</td><td>"
+	                        + rs.getInt("idmed")
+	                        +"</td></tr>";
+	            }
+	            rs.close();
+	            st.close();
+	            }catch(Exception e){
+	                System.out.println("Cant read from Personne or Patient table");
+	                System.out.println(e);
+	            }
+	        return prescriptionsExam;
 	    }
 		
 		//Optionnelle...? Ajouter autres attribus? 

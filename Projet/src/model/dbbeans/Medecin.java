@@ -13,6 +13,7 @@ public class Medecin {
     private String prenom;
     private String idM;
     private String patients;
+    private String consultations;
     
     public Medecin() {
     	patients = "";
@@ -50,13 +51,19 @@ public class Medecin {
     {
     	this.idM = IDM;
     }
+    public String getPatients(){
+    	return patients;
+    }
+    public String getConsultations(){
+    	return consultations;
+    }
     
     public Medecin findMedecin(String idmed, DataAccess db) {
         Connection connection = db.getConnection();
         Medecin med = null;
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin, CabinetDB.personne WHERE idp = idm AND idm = '"+idmed+"'");
+            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin, CabinetDB.personne WHERE idp = idm AND idm = '"+idmed+"';");
             
             if(rs.next())
             	med = new Medecin(idmed, rs.getString("nom"), rs.getString("prenom"));
@@ -76,7 +83,7 @@ public class Medecin {
         ArrayList<Patient> patient = new ArrayList<Patient>();
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"'");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"';");
 
             while(rs.next())
             {
@@ -96,7 +103,7 @@ public class Medecin {
         
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"'");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"';");
         }catch(Exception e){
             System.out.println("Cant read from Personne or Patient table");
             System.out.println(e);
@@ -105,27 +112,27 @@ public class Medecin {
         try{
             while (rs.next())
             {
-                patients+="<tr><tr><td>"
-                               + rs.getString("IDPat")
-                               + "</td><td>"
-                               + rs.getString("nom")
-                               +"</td></tr>"
-                               + rs.getString("prenom")
-                               +"</td></tr>"
-                               + rs.getInt("Num")
-                               +"</td></tr>"
-                               + rs.getString("Rue")
-                               +"</td></tr>"
-                               + rs.getString("Ville")
-                               +"</td></tr>"
-                               + rs.getString("numTelephone")
-                               +"</td></tr>"
-                               + rs.getString("NAS")
-                               +"</td></tr>"
-                               + rs.getDate("dateNaissance")
-                               +"</td></tr>"
-                               + rs.getString("sexe")
-                               +"</td></tr>";
+            	patients+="<tr><td>"
+                        + rs.getString("IDPat")
+                        + "</td><td>"
+                        + rs.getString("nom")
+                        +"</td><td>"
+                        + rs.getString("prenom")
+                        +"</td><td>"
+                        + rs.getInt("Num")
+                        +"</td><td>"
+                        + rs.getString("Rue")
+                        +"</td><td>"
+                        + rs.getString("Ville")
+                        +"</td><td>"
+                        + rs.getString("numTelephone")
+                        +"</td><td>"
+                        + rs.getString("NAS")
+                        +"</td><td>"
+                        + rs.getDate("dateNaissance")
+                        +"</td><td>"
+                        + rs.getString("sexe")
+                        +"</td></tr>";
             }
         }catch(Exception e){
             System.out.println("Error creating table "+e);
@@ -152,6 +159,36 @@ public class Medecin {
                 System.out.println(e);
             }
             return cons;
+    }
+    
+    //En théorie on pourrait conbinné cette fonction et getConsultations.
+    public String getConsultationsString(DataAccess db) {
+        connection = db.getConnection();
+        try{
+            st = connection.createStatement();
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDMAND Personne.IDM = '"+this.idM+"'");
+            
+            while(rs.next()){
+            	consultations+="<tr><td>"
+                        + rs.getString("idcons")
+                        + "</td><td>"
+                        + rs.getString("datec")
+                        +"</td><td>"
+                        + rs.getString("heure")
+                        +"</td><td>"
+                        + rs.getInt("duree")
+                        +"</td><td>"
+                        + rs.getString("raison")
+                        +"</td></tr>";
+            }
+            
+            rs.close();
+            st.close();
+            }catch(Exception e){
+                System.out.println("Cant read from medecin table");
+                System.out.println(e);
+            }
+            return consultations;
     }
     
     public ArrayList<Prescription> getPrescriptions(DataAccess db) {
@@ -197,8 +234,8 @@ public class Medecin {
             
 
             System.out.println("ID: "+ id);
-            st.executeUpdate("INSERT INTO CabinetDB.Prescription VALUES ('"+id+"','" + cons.getIdCons() + "')");
-            st.executeUpdate("INSERT INTO CabinetDB.PresExamen VALUES ('"+id+"','" + nom + "')");
+            st.executeUpdate("INSERT INTO CabinetDB.Prescription VALUES ('"+id+"','" + cons.getIdCons() + "');");
+            st.executeUpdate("INSERT INTO CabinetDB.PresExamen VALUES ('"+id+"','" + nom + "');");
 
             rs.close();
             st.close();
@@ -217,7 +254,7 @@ public class Medecin {
         try {
             st = connection.createStatement();
 
-            rs  = st.executeQuery("SELECT max(idpresm) as id FROM CabinetDB.PresMedicament");
+            rs  = st.executeQuery("SELECT max(idpresm) as id FROM CabinetDB.PresMedicament;");
             rs.next();
             
             String max_id = rs.getString(1);
@@ -228,8 +265,8 @@ public class Medecin {
             
 
             System.out.println("ID: "+ id);
-            st.executeUpdate("INSERT INTO CabinetDB.Prescription VALUES ('"+id+"','" + cons.getIdCons() + "')");
-            st.executeUpdate("INSERT INTO CabinetDB.PresMedicament VALUES ('"+id+"',DATE'" + date.toString() + "','"+idMedicament+"')");
+            st.executeUpdate("INSERT INTO CabinetDB.Prescription VALUES ('"+id+"','" + cons.getIdCons() + "');");
+            st.executeUpdate("INSERT INTO CabinetDB.PresMedicament VALUES ('"+id+"',DATE'" + date.toString() + "','"+idMedicament+"');");
 
             rs.close();
             st.close();
@@ -265,6 +302,22 @@ public class Medecin {
                 System.out.println(e);
             }
         return patient;
+    }
+    
+    public void deletePasient(String idPat, DataAccess db){
+    	connection = db.getConnection();   
+
+        try {
+            st = connection.createStatement();
+            
+            st.executeUpdate("DELETE FROM CabinetDB.Personne WHERE Personne.idp = '" + idPat + "';");
+
+            rs.close();
+            st.close();
+        }catch(Exception e){
+            System.out.println("Cant delete from customer table");
+        }
+        
     }
     
 }

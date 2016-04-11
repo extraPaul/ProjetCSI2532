@@ -7,7 +7,7 @@
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
-
+<jsp:useBean id="Patient"  class="model.dbbeans.Patient" scope="session" />
  
 <html lang="en">
 
@@ -23,10 +23,10 @@ if(key !=null){%>
     <title>PAJME</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/heroic-features.css" rel="stylesheet">
+    <link href="css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,16 +53,16 @@ if(key !=null){%>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom" value= <jsp:getProperty name="Patient" property="name" />> </td></tr>
-        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom"> </td></tr>
-        			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum"> </td></tr>
-        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue"> </td></tr>
-        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModPatVille"> </td></tr>
-        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModPatNumTel"> </td></tr>
-        			<tr><td>Sexe:</td>	 			<td><input type="text" name="ModPatSexe"> </td></tr>
+        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom" value= <jsp:getProperty name="Patient" property="nom" />> </td></tr>
+        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom" value= <jsp:getProperty name="Patient" property="prenom" />> </td></tr>
+        			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum" value= <jsp:getProperty name="Patient" property="num" />> </td></tr>
+        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue" value= <jsp:getProperty name="Patient" property="rue" />> </td></tr>
+        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModPatVille" value= <jsp:getProperty name="Patient" property="ville" />> </td></tr>
+        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModPatNumTel" value= <jsp:getProperty name="Patient" property="numTelephone" />> </td></tr>
+        			<tr><td>Sexe:</td>	 			<td><input type="text" name="ModPatSexe" value= <jsp:getProperty name="Patient" property="sexe" />> </td></tr>
             		</table>
             		<br>
-            		<button name="ModPatSubmit">Submit</button>
+            		<input type="submit" name="ModPatSubmit" value="Submit">
             </form>
 
         

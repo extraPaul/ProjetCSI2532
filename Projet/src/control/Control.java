@@ -189,8 +189,15 @@ public class Control extends HttpServlet
     			id = "P0" + id.substring(1);
     		}
             
-
-            System.out.println("ID: "+ id);
+    		st.executeUpdate("UPDATE CabinetDB.Personne"
+    				+ " SET nom = '" + (String)request.getParameter("ModPatNom")
+    				+ "', prenom = '" + (String)request.getParameter("ModPatPrenom")
+    				+ "', num = '" + (String)request.getParameter("ModPatNum")
+    				+ "', rue = '" + (String)request.getParameter("ModPatNom")
+    				+ "', ville = '" + (String)request.getParameter("ModPatNom")
+    				+ "', prenom = '" + (String)request.getParameter("ModPatNom")
+    				+ "', prenom = '" + (String)request.getParameter("ModPatNom"));
+            
             st.executeUpdate("INSERT INTO CabinetDB.Personne VALUES ('"+id+"','"
             		+ (String)request.getParameter("AddPatNom") + "', '"
             		+ (String)request.getParameter("AddPatPrenom") + "', '"
@@ -256,7 +263,6 @@ public class Control extends HttpServlet
         } else if (request.getParameter("ModPatSubmit") != null){
     		modifyPatient(request,response);
         }
-    	
     	
     }
     

@@ -39,7 +39,6 @@ public class Patient {
 	    
 	    public void findAttributes(String idPat, DataAccess db) {
 	        Connection connection = db.getConnection();
-	        Medecin med = null;
 	        try{
 	            st = connection.createStatement();
 	            rs  = st.executeQuery("SELECT * FROM CabinetDB.patient, CabinetDB.personne WHERE idp = idpat AND idpat = '"+idPat+"';");
@@ -173,10 +172,11 @@ public class Patient {
 		
 		public String getPrescriptionsExamen(DataAccess db) {
 	        Connection connection = db.getConnection();
+	        prescriptionsExam = "";
 	        try{
 	            st = connection.createStatement();
 	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presexamen pE, CabinetDB.consultation c WHERE p.consultation = c.idcons"
-	            		+ "AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"'");
+	            		+ "AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"');");
 	            while(rs.next()){
 	            	prescriptionsExam+="<tr><td>"
 	                        + rs.getString("idpress")
@@ -197,10 +197,11 @@ public class Patient {
 		
 		public String getPrescriptionsMed(DataAccess db) {
 	        Connection connection = db.getConnection();
+	        prescriptionsMed = "";
 	        try{
 	            st = connection.createStatement();
 	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presmedicament pM, CabinetDB.consultation c WHERE p.consultation = c.idcons"
-	            		+ "AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"'");
+	            		+ "AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"');");
 	            while(rs.next()){
 	            	prescriptionsMed+="<tr><td>"
 	                        + rs.getString("idpresm")

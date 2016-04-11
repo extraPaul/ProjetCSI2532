@@ -45,6 +45,8 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
           	<h1>Consultation information</h1>
             <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            
+            <a href="Accueil.jsp">Retourner a l'accueil</a>
             <p>View another doctor's consultations (by ID):</p>
             <form action="Control" method="POST"><input type="text" name="drConsultInput"><input type="submit" name="btnConsultImputSubmit" value="View patient list"></form>
             <p>Consultations</p>

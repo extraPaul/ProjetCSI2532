@@ -108,6 +108,7 @@ public class Control extends HttpServlet
     	pat.findAttributes(idPat, db);
     	pat.getPrescriptionsExam();
     	pat.getPrescriptionsMed();
+    	System.out.println(pat.getPrescriptionsMed());
     	s.setAttribute("Patient", pat);
     	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/ViewPrescriptions.jsp");
         r.forward(request,response);

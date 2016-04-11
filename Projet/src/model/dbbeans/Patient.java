@@ -42,7 +42,7 @@ public class Patient {
 	        Medecin med = null;
 	        try{
 	            st = connection.createStatement();
-	            rs  = st.executeQuery("SELECT * FROM CabinetDB.patient, CabinetDB.personne WHERE idp = idm AND idm = '"+idPat+"';");
+	            rs  = st.executeQuery("SELECT * FROM CabinetDB.patient, CabinetDB.personne WHERE idp = idpat AND idpat = '"+idPat+"';");
 	            
 	            if(rs.next()){
 	            	this.idP = idPat;

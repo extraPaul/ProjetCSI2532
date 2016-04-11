@@ -25,6 +25,10 @@ footer {
 	border: solid 1px grey;
 }
 
+.borderlands {
+	border: 1px solid;
+}
+
 .hockeyPads {
 	padding: 4px;
 }

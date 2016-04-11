@@ -12,15 +12,13 @@ public class Medecin {
     private String nom;
     private String prenom;
     private String idM;
-    private String patients;
-    private String consultations;
+    private String info;
     
     public Medecin() {
-    	patients = "";
+    	
     }
     
     public Medecin(String idm, String nom, String prenom) {
-    	patients = "";
     	this.idM = idm;
     	this.nom = nom;
     	this.prenom = prenom;
@@ -51,11 +49,8 @@ public class Medecin {
     {
     	this.idM = IDM;
     }
-    public String getPatients(){
-    	return patients;
-    }
-    public String getConsultations(){
-    	return consultations;
+    public String getInfo(){
+    	return info;
     }
     
     public Medecin findMedecin(String idmed, DataAccess db) {
@@ -100,7 +95,7 @@ public class Medecin {
     
     public String getPatientsString(String idmed, DataAccess db) {
         connection = db.getConnection();
-        patients = "";
+        info = "";
         try{
             st = connection.createStatement();
             rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+idmed+"';");
@@ -112,7 +107,7 @@ public class Medecin {
         try{
             while (rs.next())
             {
-            	patients+="<tr><td>"
+            	info+="<tr><td>"
                         + rs.getString("IDPat")
                         + "</td><td>"
                         + rs.getString("nom")
@@ -135,16 +130,16 @@ public class Medecin {
                         +"</td><td>"
                         + "<form action='Control' type='POST'>"
                         			+  "<select name='patAuxSelect'> "
-                        			+ 			"<option name='patVoirPrescription'>Voir prescriptions</option>"
-                        			+  			"<option name='modifierPatinfo'>Modifier</option>"
-                        			+  			"<option name='supprimerPatList'>Supprimer</option></select>"
-                        			+  			"<button name='auOptPatGo'>Go</button></form>"
+                        			+ 			"<option name='"+ rs.getString("IDPat")+" patVoirPrescription'>Voir prescriptions</option>"
+                        			+  			"<option name='"+ rs.getString("IDPat")+" modifierPatinfo'>Modifier</option>"
+                        			+  			"<option name='"+ rs.getString("IDPat")+" supprimerPatList'>Supprimer</option></select>"
+                        			+  			"<input type='submit' name='auOptPatGo' value='Go'></form>"
                         + "</td></tr>";
             }
         }catch(Exception e){
             System.out.println("Error creating table "+e);
         }
-        return patients;
+        return info;
     }
     
     
@@ -171,19 +166,20 @@ public class Medecin {
     //En théorie on pourrait conbinné cette fonction et getConsultations.
     public String getConsultationsString(String idMed, DataAccess db) {
         connection = db.getConnection();
+        info = "";
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+idMed+"';");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.medecin = Personne.IDP AND Personne.IDP = '"+idMed+"';");
             
             while(rs.next()){
-            	consultations+="<tr><td>"
+            	info +="<tr><td>"
                         + rs.getString("idcons")
                         + "</td><td>"
                         + rs.getString("datec")
                         +"</td><td>"
                         + rs.getString("heure")
                         +"</td><td>"
-                        + rs.getInt("duree")
+                        + rs.getDate("duree")
                         +"</td><td>"
                         + rs.getString("raison")
                         +"</td><td>"
@@ -203,7 +199,7 @@ public class Medecin {
                 System.out.println("Cant read from medecin table");
                 System.out.println(e);
             }
-            return consultations;
+            return info;
     }
     
     public ArrayList<Prescription> getPrescriptions(DataAccess db) {

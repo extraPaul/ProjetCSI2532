@@ -60,7 +60,7 @@ if(key !=null){%>
         			<tr><td>Raison:</td>	 			<td><input type="text" name="ModConsultRue"> </td></tr>
             		</table>
             		<br>
-            		<button name="ModConsultSubmit">Submit</button>
+            		<input type="submit" name="ModConsultSubmit" value="Submit">
             </form>
 
         

@@ -45,8 +45,9 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
           	<h1>Consultation information</h1>
             <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <a href="Accueil.jsp">Retourner a l'accueil</a>
             <p>View another doctor's consultations (by ID):</p>
-            <form action="Control" method="POST"><input type="text" name="drConsultInput"><input type="submit" name="btnConsultImputSubmit" value="View patient list"></form>
+            <form action="Control" method="post" ><input type="text" name="drConsultInput"> <button name="drConsultInput">View consultation list</button></form>
             <p>Consultations</p>
         	<table border = 1>
         		
@@ -71,18 +72,6 @@ if(key !=null){%>
          	<jsp:getProperty name="Medecin" property="info" />
         	</table>
             
-        	<br><br>
-             <p>Add a prescription by consultation ID:</p>
-            <form action="Control" method="post" ><input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button></form>
-            
-            <br><br>
-             <p>Modify a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultModInput"> <button name="ConsultModSubmit">Modify</button></form>
-            
-            <br><br>
-             <p>Delete a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultDelInput"> <button name="ConsultDelSubmit">Delete</button></form>
-        
             
             
         </header>

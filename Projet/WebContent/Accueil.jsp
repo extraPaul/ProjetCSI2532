@@ -47,7 +47,7 @@ if(key !=null){%>
             <p>PAJME is a medical information platform and stands for Paul, Alex, Jon Medical Encoding. </p>
             <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <p>Bonjour Docteur <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" /></p>
-        	<a href="modInfoPerson.jsp">Modifier informations personelles</a>
+        	<a href="JSP_forms/modMedInfoPerson.jsp">Modifier informations personelles</a>
             
             
             

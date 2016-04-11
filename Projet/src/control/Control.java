@@ -28,6 +28,7 @@ public class Control extends HttpServlet
         db.openConnection();
         
         Medecin medecin = new Medecin().findMedecin(medecin_ID, db);
+        medecin.findAttributes(medecin_ID, db);
 
         if (medecin != null)
         {    
@@ -128,7 +129,7 @@ public class Control extends HttpServlet
     
     private void deletePatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
     	Medecin med = (Medecin) s.getAttribute("Medecin");
-    	med.deletePasient(idPat, db);
+    	med.deletePatient(idPat, db);
     	med.getPatientsString(med.getIDM(), db);
         s.setAttribute("Medecin", med);
     	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
@@ -191,7 +192,8 @@ public class Control extends HttpServlet
             rs.close();
             st.close();
         }catch(Exception e){
-            System.out.println("Cant insert into customer table");
+            System.out.println("Cant insert into patient table");
+            System.out.println(e);
         }
     	
     	
@@ -222,11 +224,47 @@ public class Control extends HttpServlet
     				+ "', rue = '" + (String)request.getParameter("ModPatRue")
     				+ "', ville = '" + (String)request.getParameter("ModPatVille")
     				+ "', numTelephone = '" + (String)request.getParameter("ModPatNumTel")
-    				+ "' WHERE idP = '" + pat.getIdP() + "';");
+    				+ "' WHERE Personne.idP = '" + pat.getIdP() + "';");
     		
     		st.executeUpdate("UPDATE CabinetDB.Patient"
     				+ " SET sexe = '" + (String)request.getParameter("ModPatSexe")
-    				+ "' WHERE idP = '" + pat.getIdP() + "';");
+    				+ "' WHERE Patient.idPat = '" + pat.getIdP() + "';");
+
+            //rs.close();
+            st.close();
+        }catch(Exception e){
+            System.out.println("Cant insert into Personne table");
+            System.out.println(e);
+        }
+    	
+    	
+        med.getPatientsString(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+        r.forward(request,response);
+    }
+    
+    private void modifyConsultation(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+    	Consultation cons = (Consultation) s.getAttribute("Consultation");
+    	
+    	Connection connection = db.getConnection();       
+
+        try {
+        	Statement st = connection.createStatement();
+            
+    		/*st.executeUpdate("UPDATE CabinetDB.Personne"
+    				+ " SET nom = '" + (String)request.getParameter("ModPatNom")
+    				+ "', prenom = '" + (String)request.getParameter("ModPatPrenom")
+    				+ "', num = '" + (String)request.getParameter("ModPatNum")
+    				+ "', rue = '" + (String)request.getParameter("ModPatRue")
+    				+ "', ville = '" + (String)request.getParameter("ModPatVille")
+    				+ "', numTelephone = '" + (String)request.getParameter("ModPatNumTel")
+    				+ "' WHERE Personne.idP = '" + pat.getIdP() + "';");
+    		
+    		st.executeUpdate("UPDATE CabinetDB.Patient"
+    				+ " SET sexe = '" + (String)request.getParameter("ModPatSexe")
+    				+ "' WHERE Patient.idPat = '" + pat.getIdP() + "';");*/
 
             //rs.close();
             st.close();
@@ -296,37 +334,48 @@ public class Control extends HttpServlet
     		RequestDispatcher r;
     		switch(action.split(" ")[1]){
     		case "consultAddPrescriptionMed":
-    			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresExam.jsp");
-    	        r.forward(request,response);
-    			break;
-    		case "consultAddPrescriptionExam":
     			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresMed.jsp");
     	        r.forward(request,response);
     			break;
+    		case "consultAddPrescriptionExam":
+    			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresExam.jsp");
+    	        r.forward(request,response);
+    			break;
 			case "modifierConsultinfo":
-				deletePatient(request,response,idCons);
+		    	r = this.getServletContext().getRequestDispatcher("/JSP_forms/ModConsult.jsp");
+		        r.forward(request,response);
 				break;
 			case "supprimerConsultList":
-				deletePatient(request,response,idCons);
+				Connection connection = db.getConnection();   
+
+		        try {
+		            Statement st = connection.createStatement();
+		            
+		            st.executeUpdate("DELETE FROM CabinetDB.Consultation WHERE Consultation.idcons = '" + idCons + "';");
+		            st.close();
+		        }catch(Exception e){
+		            System.out.println("Cant delete from Consultation table");
+		            System.out.println(e);
+		        }
+		        processActionMyConsultation(request, response);
 				break;
     		}
     	} else if (request.getParameter("AddPresExamSubmit") != null){
     		Consultation cons = (Consultation) s.getAttribute("Consultation");
     		Medecin med = (Medecin) s.getAttribute("Medecin");
     		med.createPresExam(cons, request.getParameter("AddPresExamNom"), db);
+    		RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
+            r2.forward(request,response);
         } else if (request.getParameter("AddPresMedSubmit") != null){
     		Consultation cons = (Consultation) s.getAttribute("Consultation");
     		Medecin med = (Medecin) s.getAttribute("Medecin");
     		med.createPresMed(cons, request.getParameter("AddPresMedDuree"), request.getParameter("AddPresMedIdMed"), db);
+    		RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
+            r2.forward(request,response);
+        } else if (request.getParameter("ModConsultSubmit") != null){
+    		//modifyPatient(request,response);
         }
     	
-    }
-    
-    public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
-    {
-        Medecin med = (Medecin) s.getAttribute("Medecin");
-        med.getPatientsString(med.getIDM(), db);
-        s.setAttribute("Medecin", med);
     }
     
     public void destroy()

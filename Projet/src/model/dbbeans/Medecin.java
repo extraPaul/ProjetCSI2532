@@ -95,7 +95,7 @@ public class Medecin {
             	this.rue = rs.getString("Rue");
             	this.ville = rs.getString("Ville");
             	this.numTelephone = rs.getString("numTelephone");
-            	this.SpecialiteInfo = rs.getString("Spécialite");
+            	this.SpecialiteInfo = rs.getString("spécialite");
             	
             }
             
@@ -219,11 +219,11 @@ public class Medecin {
                         +"</td><td>"
                         + rs.getString("nom")
                         +"</td><td>"
-                        +"<form action='Control' type='POST'>"
-                    	+  "<select name='consAuxSelect'> <option  name='"+ rs.getString("IDPat")+" consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
-                    	+  "<option  name='"+ rs.getString("idcons")+" consultAddPrescriptionExam'>Ajouter prescription examen</option>"
-                    	+  "<option name='"+ rs.getString("idcons")+" modifierConsultinfo'>Modifier</option>"
-                    	+  "<option name='"+ rs.getString("idcons")+" supprimerConsultList'>Supprimer</option></select>"
+                        +"<form action='Control' method='POST'>"
+                    	+  "<select name='consAuxSelect'> <option  value='"+ rs.getString("idcons")+" consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
+                    	+  "<option  value='"+ rs.getString("idcons")+" consultAddPrescriptionExam'>Ajouter prescription examen</option>"
+                    	+  "<option value='"+ rs.getString("idcons")+" modifierConsultinfo'>Modifier</option>"
+                    	+  "<option value='"+ rs.getString("idcons")+" supprimerConsultList'>Supprimer</option></select>"
                     	+  "<input type='submit' name='auOptConsultGo' value='Go'></form>"
                         + "</td></tr>";
             }
@@ -351,18 +351,20 @@ public class Medecin {
         return patient;
     }
     
-    public void deletePasient(String idPat, DataAccess db){
+    public void deletePatient(String idPat, DataAccess db){
     	connection = db.getConnection();   
 
         try {
             st = connection.createStatement();
             
             st.executeUpdate("DELETE FROM CabinetDB.Personne WHERE Personne.idp = '" + idPat + "';");
+            st.executeUpdate("DELETE FROM CabinetDB.Patient WHERE Patient.idpat = '" + idPat + "';");
 
             rs.close();
             st.close();
         }catch(Exception e){
-            System.out.println("Cant delete from customer table");
+            System.out.println("Cant delete from patient table");
+            System.out.println(e);
         }
         
     }

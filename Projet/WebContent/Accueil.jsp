@@ -78,7 +78,7 @@ if(key !=null){%>
                         <h3>Patients</h3>
 <!--                         <p>What operation would you like to perform?</p> -->
                         <p>
-                         <form>
+                         <form action="Control" method="POST">
                         	<!--<select>
                         		<option value="PaPlaceholder 1">PaPlaceholder 1</option>
                         		<option value="PaPlaceholder 2">PaPlaceholder 2</option>
@@ -88,7 +88,7 @@ if(key !=null){%>
                         		<option value="PaPlaceholder 6">PaPlaceholder 6</option>
                         		<option value="PaPlaceholder 7">PaPlaceholder 7</option>
                         	</select> -->
-                        	<a href="PatientList.jsp" class="leftMargarine">Browse patients</a>
+                        	<input type="submit" name="openPatients" value="Browse patients" class="leftMargarine">
                         </form>    
                         </p>
                     </div>

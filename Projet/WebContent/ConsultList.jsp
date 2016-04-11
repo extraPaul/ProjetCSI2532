@@ -68,7 +68,7 @@ if(key !=null){%>
         		</td>
         	</tr>
         	
-         	<jsp:getProperty name="Medecin" property="consultations" />
+         	<jsp:getProperty name="Medecin" property="info" />
         	</table>
             
         	<br><br>

@@ -12,8 +12,7 @@ public class Medecin {
     private String nom;
     private String prenom;
     private String idM;
-    private String patients;
-    private String consultations;
+    private String info;
     
     public Medecin() {
     	
@@ -50,11 +49,8 @@ public class Medecin {
     {
     	this.idM = IDM;
     }
-    public String getPatients(){
-    	return patients;
-    }
-    public String getConsultations(){
-    	return consultations;
+    public String getInfo(){
+    	return info;
     }
     
     public Medecin findMedecin(String idmed, DataAccess db) {
@@ -99,7 +95,7 @@ public class Medecin {
     
     public String getPatientsString(String idmed, DataAccess db) {
         connection = db.getConnection();
-        patients = "";
+        info = "";
         try{
             st = connection.createStatement();
             rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+idmed+"';");
@@ -111,7 +107,7 @@ public class Medecin {
         try{
             while (rs.next())
             {
-            	patients+="<tr><td>"
+            	info+="<tr><td>"
                         + rs.getString("IDPat")
                         + "</td><td>"
                         + rs.getString("nom")
@@ -143,7 +139,7 @@ public class Medecin {
         }catch(Exception e){
             System.out.println("Error creating table "+e);
         }
-        return patients;
+        return info;
     }
     
     
@@ -170,13 +166,13 @@ public class Medecin {
     //En théorie on pourrait conbinné cette fonction et getConsultations.
     public String getConsultationsString(String idMed, DataAccess db) {
         connection = db.getConnection();
-        consultations = "";
+        info = "";
         try{
             st = connection.createStatement();
             rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.medecin = Personne.IDP AND Personne.IDP = '"+idMed+"';");
             
             while(rs.next()){
-            	consultations+="<tr><td>"
+            	info +="<tr><td>"
                         + rs.getString("idcons")
                         + "</td><td>"
                         + rs.getString("datec")
@@ -203,7 +199,7 @@ public class Medecin {
                 System.out.println("Cant read from medecin table");
                 System.out.println(e);
             }
-            return consultations;
+            return info;
     }
     
     public ArrayList<Prescription> getPrescriptions(DataAccess db) {

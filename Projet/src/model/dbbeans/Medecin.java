@@ -220,11 +220,11 @@ public class Medecin {
                         + rs.getString("nom")
                         +"</td><td>"
                         +"<form action='Control' type='POST'>"
-                    	+  "<select> <option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
-                    	+  "<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
-                    	+  "<option name='modifierConsultinfo'>Modifier</option>"
-                    	+  "<option name='supprimerConsultList'>Supprimer</option></select>"
-                    	+  "<button name='auOptConsultGo'>Go</button></form>"
+                    	+  "<select name='consAuxSelect'> <option  name='"+ rs.getString("IDPat")+" consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
+                    	+  "<option  name='"+ rs.getString("idcons")+" consultAddPrescriptionExam'>Ajouter prescription examen</option>"
+                    	+  "<option name='"+ rs.getString("idcons")+" modifierConsultinfo'>Modifier</option>"
+                    	+  "<option name='"+ rs.getString("idcons")+" supprimerConsultList'>Supprimer</option></select>"
+                    	+  "<input type='submit' name='auOptConsultGo' value='Go'></form>"
                         + "</td></tr>";
             }
             rs.close();
@@ -292,7 +292,7 @@ public class Medecin {
     }
     
     //Duré de validité de PresMed devrait peut-être être une date de début et de fin? 
-    public String createPresMed(Consultation cons, Date date, String idMedicament, DataAccess db){
+    public String createPresMed(Consultation cons, String date, String idMedicament, DataAccess db){
     	connection = db.getConnection();
         String id = "S000";        
 
@@ -311,7 +311,7 @@ public class Medecin {
 
             System.out.println("ID: "+ id);
             st.executeUpdate("INSERT INTO CabinetDB.Prescription VALUES ('"+id+"','" + cons.getIdCons() + "');");
-            st.executeUpdate("INSERT INTO CabinetDB.PresMedicament VALUES ('"+id+"',DATE'" + date.toString() + "','"+idMedicament+"');");
+            st.executeUpdate("INSERT INTO CabinetDB.PresMedicament VALUES ('"+id+"',DATE'" + date + "','"+idMedicament+"');");
 
             rs.close();
             st.close();

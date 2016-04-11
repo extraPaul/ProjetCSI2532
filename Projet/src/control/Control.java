@@ -263,8 +263,7 @@ public class Control extends HttpServlet
     		//processActionUpdateInfoMedecin(request,response);   		
     	} else if (request.getParameter("openInfo") != null){
     		processActionOpenMedecin(request,response);
-    	}
-    	else if (request.getParameter("auOptPatGo") != null){
+    	} else if (request.getParameter("auOptPatGo") != null){
     		String action = (String)request.getParameter("patAuxSelect");
     		String idPat = action.split(" ")[0];
     		
@@ -287,6 +286,38 @@ public class Control extends HttpServlet
     		addPatientForm(request,response); 
         } else if (request.getParameter("ModPatSubmit") != null){
     		modifyPatient(request,response);
+        } else if (request.getParameter("auOptConsultGo") != null){
+    		String action = (String)request.getParameter("consAuxSelect");
+    		String idCons = action.split(" ")[0];
+    		
+    		Consultation cons = new Consultation();
+    		cons.setIdCons(idCons);
+    		s.setAttribute("Consultation", cons);
+    		RequestDispatcher r;
+    		switch(action.split(" ")[1]){
+    		case "consultAddPrescriptionMed":
+    			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresExam.jsp");
+    	        r.forward(request,response);
+    			break;
+    		case "consultAddPrescriptionExam":
+    			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresMed.jsp");
+    	        r.forward(request,response);
+    			break;
+			case "modifierConsultinfo":
+				deletePatient(request,response,idCons);
+				break;
+			case "supprimerConsultList":
+				deletePatient(request,response,idCons);
+				break;
+    		}
+    	} else if (request.getParameter("AddPresExamSubmit") != null){
+    		Consultation cons = (Consultation) s.getAttribute("Consultation");
+    		Medecin med = (Medecin) s.getAttribute("Medecin");
+    		med.createPresExam(cons, request.getParameter("AddPresExamNom"), db);
+        } else if (request.getParameter("AddPresMedSubmit") != null){
+    		Consultation cons = (Consultation) s.getAttribute("Consultation");
+    		Medecin med = (Medecin) s.getAttribute("Medecin");
+    		med.createPresMed(cons, request.getParameter("AddPresMedDuree"), request.getParameter("AddPresMedIdMed"), db);
         }
     	
     }

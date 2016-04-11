@@ -49,7 +49,12 @@ if(key !=null){%>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
-            
+            <p>View another doctor's consultations (by ID):</p>
+            	<form action="Control" method="post" >
+            		<input type="text" name="drInput"><button name="drInputSubmit">View consult list</button>
+            		<br>
+            	</form>
+            	<br><br>
             <p>Consultations</p>
         	<table border = 1>
         		
@@ -73,27 +78,32 @@ if(key !=null){%>
         			Autres actions
         		</td>
         	</tr>
-<!--         	<tr> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			C001 -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExDate -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExTemps -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExDurée -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExRaison -->
-<!--         		</td><td class="hockeyPads"> -->
-<!--         			<form action="Control" type="POST"> -->
-<!--         			<select><option>Type 1</option><option>Type 2</option></select><button>Ajout</button> -->
-<!--         			</form> -->
-<!--         		</td> -->
-<!--         	</tr> -->
+        	<tr>
+        		<td class="hockeyPads">
+        			C001
+        		</td>
+        		<td class="hockeyPads">
+        			ExDate
+        		</td>
+        		<td class="hockeyPads">
+        			ExTemps
+        		</td>
+        		<td class="hockeyPads">
+        			ExDurée
+        		</td>
+        		<td class="hockeyPads">
+        			ExRaison
+        		</td><td class="hockeyPads">
+        			<form action="Control" type="POST">
+        			<select>
+        			<option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>
+        			<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>
+        			<option name='modifierConsultinfo'>Modifier</option>
+        			<option name='supprimerConsultList'>Supprimer</option>
+        			</select><button>Go</button>
+        			</form>
+        		</td>
+        	</tr>
         	
 <!--         	<jsp:getProperty name="Medecin" property="patients" /> -->
         	</table>

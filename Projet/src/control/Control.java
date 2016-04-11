@@ -94,6 +94,11 @@ public class Control extends HttpServlet
     	else if (request.getParameter("openPatients") != null){
             processActionMyPatient(request,response); 
         }
+    	else if (request.getParameter("openConsultation") != null){
+    		//CREATE ACTION pour consultation.
+            processActionMyPatient(request,response); 
+        }
+    	
     	
     }
     
@@ -102,12 +107,6 @@ public class Control extends HttpServlet
         Medecin med = (Medecin) s.getAttribute("Medecin");
         med.getPatientsString(med.getIDM(), db);
         s.setAttribute("Medecin", med);
-    }
-    
-    public void test(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-    	System.out.println("FUCK YEAH!!!!");
-	    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
-        rd.forward(request,response);
     }
     
     public void destroy()

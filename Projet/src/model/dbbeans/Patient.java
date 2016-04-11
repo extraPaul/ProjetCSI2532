@@ -37,6 +37,36 @@ public class Patient {
 	    	this.sexe = sexe;
 	    }
 	    
+	    public void findAttributes(String idPat, DataAccess db) {
+	        Connection connection = db.getConnection();
+	        Medecin med = null;
+	        try{
+	            st = connection.createStatement();
+	            rs  = st.executeQuery("SELECT * FROM CabinetDB.patient, CabinetDB.personne WHERE idp = idm AND idm = '"+idPat+"';");
+	            
+	            if(rs.next()){
+	            	this.idP = idPat;
+	            	this.nom = rs.getString("nom");
+	            	this.prenom = rs.getString("prenom");
+	            	this.num = rs.getInt("Num");
+	            	this.rue = rs.getString("Rue");
+	            	this.ville = rs.getString("Ville");
+	            	this.numTelephone = rs.getString("numTelephone");
+	            	this.nas = rs.getString("NAS");
+	            	this.dateNaissance = rs.getDate("dateNaissance");
+	            	this.sexe = rs.getString("sexe");
+	            	
+	            }
+	            
+	            rs.close();
+	            st.close();
+	            
+	            }catch(Exception e){
+	                System.out.println("Cant read from patient table");
+	                System.out.println(e);
+	            }
+	    }
+	    
 		public Statement getSt() {
 			return st;
 		}

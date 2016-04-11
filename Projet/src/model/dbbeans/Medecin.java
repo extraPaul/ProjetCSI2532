@@ -132,7 +132,12 @@ public class Medecin {
                         + rs.getDate("dateNaissance")
                         +"</td><td>"
                         + rs.getString("sexe")
-                        +"</td></tr>";
+                        +"</td><td>"
+                        + rs.getString("<form action='Control' type='POST'>"
+                        			+  "<select> <option name='patVoirPrescription'>Voir prescriptions</option>"
+                        			+  			"<option name='modifierPatinfo'>Modifier</option></select>"
+                        			+  			"<button name='supprimerPatList'>Go</button></form>")
+                        + "</td></tr>";
             }
         }catch(Exception e){
             System.out.println("Error creating table "+e);

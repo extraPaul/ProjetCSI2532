@@ -42,15 +42,14 @@ if(key !=null){%>
 
     <!-- Page Content -->
     <div class="container">
-
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
           	<h1>Patient information</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
-            <p>View another doctor's patients (by ID):</p>
-            <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form>
+<!--             <p>View another doctor's patients (by ID):</p> -->
+<!--             <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form> -->
             <p>Patients</p>
         	<table border = 1>
         	<tr>
@@ -84,7 +83,19 @@ if(key !=null){%>
         		<td class="hockeyPads">
         			Sexe
         		</td>
+        		</td>
+        		<td class="hockeyPads">
+        			Autres Actions
+        		</td>
+        		
         	</tr>
+
+<!--         		<td class="hockeyPads"> -->
+        			<form action="Control" type="POST">
+        			<select><option>Voir prescriptions</option><option>Modifier</option></select><button>Go</button>
+        			</form>
+<!--         		</td> -->
+
         	
         	<jsp:getProperty name="Medecin" property="patients" />
         	</table> 

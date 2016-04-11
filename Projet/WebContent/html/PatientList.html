@@ -49,7 +49,11 @@ if(key !=null){%>
             <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
            	 	<p>View another doctor's patients (by ID):</p>
-            	<form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form>
+            	<form action="Control" method="post" >
+            		<input type="text" name="drInput"><button name="drInputSubmit">View patient list</button>
+            		<br>
+            		<input type="submit" name="AddPatList" value="Add patient">
+            	</form>
             <p>Patients</p>
         	<table border = 1>
         	<tr>

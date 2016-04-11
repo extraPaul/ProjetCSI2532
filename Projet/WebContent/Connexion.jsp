@@ -44,7 +44,7 @@
             <form action="Control" method="POST">
             	ID:
  				<input style="margin-left:3px" type="text" name="username">
-                <input type="submit" name="logIn" value="Confirmer">
+                <input type='submit' name='logIn' value='Confirmer'>
   				
             </form>
         </header>

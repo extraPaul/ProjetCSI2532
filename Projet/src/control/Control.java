@@ -102,7 +102,7 @@ public class Control extends HttpServlet
     }
 
     private void modifyPatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
-    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/ModPatient.jsp");
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/ModPatient.jsp");
         r.forward(request,response);
     }
     
@@ -121,7 +121,6 @@ public class Control extends HttpServlet
     		processActionMyConsultation(request,response); 
         }
     	else if (request.getParameter("auOptPatGo") != null){
-    		//String action = request.getParameterValues("patAuxSelect")[0];
     		String action = (String)request.getParameter("patAuxSelect");
     		String idPat = action.split(" ")[0];
     		

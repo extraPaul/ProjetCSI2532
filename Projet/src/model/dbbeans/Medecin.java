@@ -128,11 +128,11 @@ public class Medecin {
                         +"</td><td>"
                         + rs.getString("sexe")
                         +"</td><td>"
-                        + "<form action='Control' type='POST'>"
+                        + "<form action='Control' method='POST'>"
                         			+  "<select name='patAuxSelect'> "
-                        			+ 			"<option name='"+ rs.getString("IDPat")+" patVoirPrescription'>Voir prescriptions</option>"
-                        			+  			"<option name='"+ rs.getString("IDPat")+" modifierPatinfo'>Modifier</option>"
-                        			+  			"<option name='"+ rs.getString("IDPat")+" supprimerPatList'>Supprimer</option></select>"
+                        			+ 			"<option value='"+ rs.getString("IDPat")+" patVoirPrescription'>Voir prescriptions</option>"
+                        			+  			"<option value='"+ rs.getString("IDPat")+" modifierPatinfo'>Modifier</option>"
+                        			+  			"<option value='"+ rs.getString("IDPat")+" supprimerPatList'>Supprimer</option></select>"
                         			+  			"<input type='submit' name='auOptPatGo' value='Go'></form>"
                         + "</td></tr>";
             }

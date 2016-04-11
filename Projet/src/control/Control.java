@@ -5,6 +5,7 @@ import model.connection.DataAccess;
 import model.dbbeans.*;
 
 import java.io.*;
+import java.sql.*;
 import java.util.ArrayList;
 
 import javax.servlet.*;
@@ -79,8 +80,8 @@ public class Control extends HttpServlet
     	Medecin med = (Medecin) s.getAttribute("Medecin");
         med.getPatientsString(med.getIDM(), db);
         s.setAttribute("Medecin", med);
-    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
-        r2.forward(request,response);
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+        r.forward(request,response);
     }
     
     private void processActionMyConsultation(HttpServletRequest request,HttpServletResponse response) 
@@ -117,6 +118,58 @@ public class Control extends HttpServlet
         r.forward(request,response);
     }
     
+    private void addPatient(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+    	
+    	Connection connection = db.getConnection();
+        String id = "P000";        
+
+        try {
+        	Statement st = connection.createStatement();
+
+        	ResultSet rs  = st.executeQuery("SELECT max(idpat) as id FROM CabinetDB.Patient");
+            rs.next();
+            
+            String max_id = rs.getString(1);
+            id = "P" + Integer.toString(Integer.parseInt(max_id.substring(1)) + 1);
+    		while(id.length() < 4){
+    			id = "P0" + id.substring(1);
+    		}
+            
+
+            System.out.println("ID: "+ id);
+            st.executeUpdate("INSERT INTO CabinetDB.Personne VALUES ('"+id+"','"
+            		+ (String)request.getParameter("AddPatNom") + "', '"
+            		+ (String)request.getParameter("AddPatPrenom") + "', '"
+            		+ (String)request.getParameter("AddPatNum") + "', '"
+            		+ (String)request.getParameter("AddPatRue") + "', '"
+            		+ (String)request.getParameter("AddPatVille") + "', '"
+            		+ (String)request.getParameter("AddPatNumTel") + "');");
+            
+            st.executeUpdate("INSERT INTO CabinetDB.Patient VALUES ('"+id+"','"
+            		+ (String)request.getParameter("AddPatNas") + "', '"
+            		+ (String)request.getParameter("AddPatDateN") + "', '"
+            		+ (String)request.getParameter("AddPatSexe") + "', '"
+            		+  med.getIDM() + "');");
+
+            rs.close();
+            st.close();
+        }catch(Exception e){
+            System.out.println("Cant insert into customer table");
+        }
+    	
+    	
+        med.getPatientsString(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+        r.forward(request,response);
+    }
+    
+    private void addPatientForm(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPat.jsp");
+        r.forward(request,response);
+    }
+    
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
     	if (request.getParameter("logIn") != null) {
@@ -148,7 +201,11 @@ public class Control extends HttpServlet
 				deletePatient(request,response,idPat);
 				break;
     		}
-    	}
+    	} else if (request.getParameter("AddPatSubmit") != null){
+    		addPatient(request,response); 
+        } else if (request.getParameter("AddPatList") != null){
+    		addPatientForm(request,response); 
+        }
     	
     }
     

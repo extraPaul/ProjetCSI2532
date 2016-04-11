@@ -23,10 +23,10 @@ if(key !=null){%>
     <title>PAJME</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/heroic-features.css" rel="stylesheet">
+    <link href="css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,7 +53,6 @@ if(key !=null){%>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idPatient:</td>		    <td><input type="text" name="AddPatId"> </td></tr>
         			<tr><td>Nom:</td>	 			<td><input type="text" name="AddPatNom"> </td></tr>
         			<tr><td>Prenom:</td>	 		<td><input type="text" name="AddPatPrenom"> </td></tr>
         			<tr><td>Num:</td>	 			<td><input type="text" name="AddPatNum"> </td></tr>

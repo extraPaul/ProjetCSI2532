@@ -288,6 +288,8 @@ public class Medecin {
         return id;
     }
     
+    
+    
     //This could potentially become a "search through all".
     //En se moment it only looks throught attribues of personne and pathologie(name).
     public ArrayList<Patient> searchPatients(String search, DataAccess db) {

@@ -65,7 +65,7 @@ if(key !=null){%>
         			<tr><td>Sexe:</td>	 			<td><input type="text" name="AddPatSexe"> </td></tr>
             		</table>
             		<br>
-            		<button name="AddPatSubmit">Submit</button>
+            		<input type='submit' name='AddPatSubmit' value='Submit'>
             </form>
 
         

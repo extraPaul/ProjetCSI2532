@@ -8,7 +8,7 @@
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
-
+<jsp:useBean id="Patient"  class="model.dbbeans.Patient" scope="session" />
  
 <html lang="en">
 
@@ -51,8 +51,36 @@ if(key !=null){%>
             <p>Prescriptions de <jsp:getProperty name="Patient" property="idP" /><br>
             <jsp:getProperty name="Patient" property="prenom" /> <jsp:getProperty name="Patient" property="nom" /></p>
         	<table border = 1>
+        	<tr>
+        		<td>
+        			idPres
+        		</td>
+        		<td>
+        			idCons
+        		</td>
+        		<td>
+        			Durée de validité
+        		</td>
+        		<td>
+        			idMedicament
+        		</td>
+        	</tr>
+        	<jsp:getProperty name="Patient" property="prescriptionsMed" />
+        	</table> 
         	
-        	<jsp:getProperty name="Patients" property="prescriptions" />
+        	<table border = 1>
+        	<tr>
+        		<td>
+        			idPres
+        		</td>
+        		<td>
+        			idCons
+        		</td>
+        		<td>
+        			Nom
+        		</td>
+        	</tr>
+        	<jsp:getProperty name="Patient" property="prescriptionsExam" />
         	</table> 
             
         </header>

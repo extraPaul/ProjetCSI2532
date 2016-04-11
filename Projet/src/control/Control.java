@@ -93,12 +93,23 @@ public class Control extends HttpServlet
         r2.forward(request,response);
     }
     
-    private void deletePatient(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-    	
+    private void deletePatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+    	med.deletePasient(idPat, db);
+    	med.getPatientsString(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+        r.forward(request,response);
     }
     
-    private void openPatientPrescriptions(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-    	
+    private void openPatientPrescriptions(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
+    	Patient pat = new Patient();
+    	pat.setIdP(idPat);
+    	pat.getPrescriptionsExam();
+    	pat.getPrescriptionsMed();
+    	s.setAttribute("Patient", pat);
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/ViewPrescriptions.jsp");
+        r.forward(request,response);
     }
 
     private void modifyPatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
@@ -128,13 +139,13 @@ public class Control extends HttpServlet
     		
     		switch(action.split(" ")[1]){
     		case "patVoirPrescription":
-    			openPatientPrescriptions(request,response);
+    			openPatientPrescriptions(request,response,idPat);
     			break;
     		case "modifierPatinfo":
     			modifyPatient(request,response,idPat);
     			break;
 			case "supprimerPatList":
-				deletePatient(request,response);
+				deletePatient(request,response,idPat);
 				break;
     		}
     	}

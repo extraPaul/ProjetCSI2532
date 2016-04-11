@@ -47,9 +47,11 @@ if(key !=null){%>
             <h1>Welcome to PAJME</h1>
             <p>PAJME is a medical information platform and stands for Paul, Alex, Jon Medical Encoding. </p>
             <p><a class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            
             <p>View another doctor's patients:</p>
             <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form>
             <p>Doctor <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" />'s patients</p>
+        	
         	<table border = 1>
         	<tr>
         		<td>

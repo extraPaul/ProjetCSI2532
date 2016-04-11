@@ -45,7 +45,7 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
             <h1>Welcome to PAJME</h1>
             <p>PAJME is a medical information platform and stands for Paul, Alex, Jon Medical Encoding. </p>
-            <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <p>Bonjour Docteur <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" /></p>
         	<a href="modInfoPerson.jsp">Modifier informations personelles</a>
             

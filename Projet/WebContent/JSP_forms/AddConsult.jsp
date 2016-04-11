@@ -45,7 +45,7 @@ if(key !=null){%>
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
           	<h1>Add a consultation</h1>
-            <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
            <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
         	
@@ -53,7 +53,6 @@ if(key !=null){%>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idConsult:</td>		    <td><input type="text" name="AddConsultId"> </td></tr>
         			<tr><td>Date:</td>	 			<td><input type="text" name="AddConsultNom"> </td></tr>
         			<tr><td>Temps :</td>	 		<td><input type="text" name="AddConsultPrenom"> </td></tr>
         			<tr><td>Durée:</td>	 			<td><input type="text" name="AddConsultNum"> </td></tr>

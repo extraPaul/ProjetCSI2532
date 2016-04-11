@@ -82,6 +82,9 @@ if(key !=null){%>
         		<td>
         			Sexe
         		</td>
+        		<td class="hockeyPads">
+        			Autres Actions
+        		</td>
         	</tr>
         	
         	<jsp:getProperty name="Medecin" property="patients" />

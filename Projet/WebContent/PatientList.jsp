@@ -51,7 +51,7 @@ if(key !=null){%>
             <p>View another doctor's patients:</p>
             <form action="Control" method="post" >
             	<input type="text" name="drInput"> 
-            	<button name="drInputSubmit">View patient list</button>
+            	<button name="drInputSubmit">View patient list</button><br><br>
             	<input type="submit" name="AddPatList" value="Add patient">
             </form>
             <p>Doctor <jsp:getProperty name="Medecin" property="prenom" /> <jsp:getProperty name="Medecin" property="nom" />'s patients</p>

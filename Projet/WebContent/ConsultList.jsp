@@ -71,18 +71,7 @@ if(key !=null){%>
          	<jsp:getProperty name="Medecin" property="info" />
         	</table>
             
-        	<br><br>
-             <p>Add a prescription by consultation ID:</p>
-            <form action="Control" method="post" ><input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button></form>
-            
-            <br><br>
-             <p>Modify a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultModInput"> <button name="ConsultModSubmit">Modify</button></form>
-            
-            <br><br>
-             <p>Delete a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultDelInput"> <button name="ConsultDelSubmit">Delete</button></form>
-        
+        	
             
             
         </header>

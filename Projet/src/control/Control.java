@@ -94,6 +94,38 @@ public class Control extends HttpServlet
         r2.forward(request,response);
     }
     
+    private void processActionConsultation(HttpServletRequest request,HttpServletResponse response) 
+    		throws ServletException, IOException
+    {
+    	String idmed = request.getParameter("drConsultInput");
+    	System.out.println(idmed);
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+    	med.getConsultationsString(idmed, db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
+        r2.forward(request,response);
+    }
+    
+    private void processActionMyMedecin(HttpServletRequest request,HttpServletResponse response) 
+    		throws ServletException, IOException
+    {
+        Medecin med = (Medecin) s.getAttribute("Medecin");
+        med.getMedecinsString(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/MedecinList.jsp");
+        r2.forward(request,response);
+    }
+    
+    private void processActionOpenMedecin(HttpServletRequest request,HttpServletResponse response) 
+    		throws ServletException, IOException
+    {
+        Medecin med = (Medecin) s.getAttribute("Medecin");
+        med.findAttributes(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/modMedInfoPerso.jsp");
+        r2.forward(request,response);
+    }
+    
     private void deletePatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
     	Medecin med = (Medecin) s.getAttribute("Medecin");
     	med.deletePasient(idPat, db);
@@ -223,7 +255,15 @@ public class Control extends HttpServlet
         }
     	else if (request.getParameter("openConsultation") != null){
     		processActionMyConsultation(request,response); 
-        }
+        } else if (request.getParameter("openMedecin") != null){
+            processActionMyMedecin(request,response);   		
+    	} else if (request.getParameter("drConsultInput") != null){
+            processActionConsultation(request,response);   		
+    	} else if (request.getParameter("ModMedSubmit") != null){
+    		//processActionUpdateInfoMedecin(request,response);   		
+    	} else if (request.getParameter("openInfo") != null){
+    		processActionOpenMedecin(request,response);
+    	}
     	else if (request.getParameter("auOptPatGo") != null){
     		String action = (String)request.getParameter("patAuxSelect");
     		String idPat = action.split(" ")[0];

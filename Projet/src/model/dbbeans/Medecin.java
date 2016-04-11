@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import model.connection.DataAccess;
 
 public class Medecin {
-    private Statement st;
+	private Statement st;
     private ResultSet rs;
     private Connection connection;
     private String nom;
     private String prenom;
+    private int num;
+    private String rue;
+    private String ville;    
+    private String numTelephone; 
     private String idM;
     private String info;
+    private String Specialite;
+    private String SpecialiteInfo;
+    private String medecins;
+    private String InfoMed;
     
     public Medecin() {
     	
@@ -71,6 +79,33 @@ public class Medecin {
                 System.out.println(e);
             }
             return med;
+    }
+    
+    public void findAttributes(String idmed, DataAccess db) {
+        Connection connection = db.getConnection();
+        try{
+            st = connection.createStatement();
+            rs  = st.executeQuery("SELECT * FROM CabinetDB.medecin, CabinetDB.personne WHERE idp = idm AND idm = '"+idmed+"';");
+            
+            if(rs.next()){
+            	this.idM = idmed;
+            	this.nom = rs.getString("nom");
+            	this.prenom = rs.getString("prenom");
+            	this.num = rs.getInt("Num");
+            	this.rue = rs.getString("Rue");
+            	this.ville = rs.getString("Ville");
+            	this.numTelephone = rs.getString("numTelephone");
+            	this.SpecialiteInfo = rs.getString("Spécialite");
+            	
+            }
+            
+            rs.close();
+            st.close();
+            
+            }catch(Exception e){
+                System.out.println("Cant read from patient table");
+                System.out.println(e);
+            }
     }
     
     public ArrayList<Patient> getPatients(DataAccess db) {
@@ -164,15 +199,14 @@ public class Medecin {
     }
     
     //En théorie on pourrait conbinné cette fonction et getConsultations.
-    public String getConsultationsString(String idMed, DataAccess db) {
+    public String getConsultationsString(String idmed,DataAccess db) {
         connection = db.getConnection();
-        info = "";
+        info ="";
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.medecin = Personne.IDP AND Personne.IDP = '"+idMed+"';");
-            
+            rs  = st.executeQuery("SELECT Consultation.*, Personne.nom FROM CabinetDB.Consultation, CabinetDB.Patient, CabinetDB.Personne WHERE Patient.IDpat = Consultation.Patient AND Patient.IDpat = Personne.IDP AND Consultation.medecin = '"+idmed+"' ORDER BY Consultation.idcons;");
             while(rs.next()){
-            	info +="<tr><td>"
+            	info+="<tr><td>"
                         + rs.getString("idcons")
                         + "</td><td>"
                         + rs.getString("datec")
@@ -183,16 +217,16 @@ public class Medecin {
                         +"</td><td>"
                         + rs.getString("raison")
                         +"</td><td>"
+                        + rs.getString("nom")
+                        +"</td><td>"
                         +"<form action='Control' type='POST'>"
-                    	+  "<select name='consultAuxSelect'> "
-                    	+  		"<option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
-                    	+  		"<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
-                    	+  		"<option name='modifierConsultinfo'>Modifier</option>"
-                    	+  		"<option name='supprimerConsultList'>Supprimer</option></select>"
-                    	+  		"<button name='auOptConsultGo'>Go</button></form>"
+                    	+  "<select> <option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
+                    	+  "<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
+                    	+  "<option name='modifierConsultinfo'>Modifier</option>"
+                    	+  "<option name='supprimerConsultList'>Supprimer</option></select>"
+                    	+  "<button name='auOptConsultGo'>Go</button></form>"
                         + "</td></tr>";
             }
-            
             rs.close();
             st.close();
             }catch(Exception e){
@@ -348,5 +382,105 @@ public class Medecin {
                 System.out.println(e);
             }
     }
+    
+    public String getMedecinsString(String idmed, DataAccess db) {
+        connection = db.getConnection();
+        medecins = "";
+        try{
+            st = connection.createStatement();
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Medecin,CabinetDB.personne WHERE Personne.IDP = Medecin.IDM AND Medecin.IDM <> '"+idmed+"' ORDER BY nom;");
+        }catch(Exception e){
+            System.out.println("Cant read from Medecin");
+            System.out.println(e);
+        }
+        
+        try{
+            while (rs.next())
+            {
+            	medecins+="<tr><td>"
+                        + rs.getString("nom")
+                        +"</td><td>"
+                        + rs.getString("prenom")
+                        +"</td><td>"
+                        + rs.getInt("Num")
+                        +"</td><td>"
+                        + rs.getString("Rue")
+                        +"</td><td>"
+                        + rs.getString("Ville")
+                        +"</td><td>"
+                        + rs.getString("numTelephone")
+                        +"</td><td>"
+                        + rs.getString("spécialite");
+
+            }
+        }catch(Exception e){
+            System.out.println("Error creating table "+e);
+        }
+        return medecins;
+    }
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public String getRue() {
+		return rue;
+	}
+
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public String getNumTelephone() {
+		return numTelephone;
+	}
+
+	public void setNumTelephone(String numTelephone) {
+		this.numTelephone = numTelephone;
+	}
+
+	public String getSpecialite() {
+		return Specialite;
+	}
+
+	public void setSpecialite(String specialite) {
+		Specialite = specialite;
+	}
+
+	public String getSpecialiteInfo() {
+		return SpecialiteInfo;
+	}
+
+	public void setSpecialiteInfo(String specialiteInfo) {
+		SpecialiteInfo = specialiteInfo;
+	}
+
+	public String getMedecins() {
+		return medecins;
+	}
+
+	public void setMedecins(String medecins) {
+		this.medecins = medecins;
+	}
+
+	public String getInfoMed() {
+		return InfoMed;
+	}
+
+	public void setInfoMed(String infoMed) {
+		InfoMed = infoMed;
+	}
     
 }

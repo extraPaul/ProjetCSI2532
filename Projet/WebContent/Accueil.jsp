@@ -125,9 +125,18 @@ if(key !=null){%>
                     <img src="img/dr.jpg" alt="">
                     <div class="caption">
                         <h3>Medecins</h3>    
-                        <form action="Control" method="POST">                 
-                        	<a href="MedecinList.jsp"><button class="leftMargarine">Browse medecins</button></a>
-                        </form>    
+                        <form action="Control" method="POST">  
+                        	<!--<select>
+                        		<option value="PaPlaceholder 1">PaPlaceholder 1</option>
+                        		<option value="PaPlaceholder 2">PaPlaceholder 2</option>
+                        		<option value="PaPlaceholder 3">PaPlaceholder 3</option>
+                        		<option value="PaPlaceholder 4">PaPlaceholder 4</option>
+                        		<option value="PaPlaceholder 5">PaPlaceholder 5</option>
+                        		<option value="PaPlaceholder 6">PaPlaceholder 6</option>
+                        		<option value="PaPlaceholder 7">PaPlaceholder 7</option>
+                        	</select> -->
+                        	<input type="submit" name="openMedecin" value="Browse medecin" class="leftMargarine">
+                        </form>   
                         </p>
                     </div>
                 </div>

@@ -101,6 +101,8 @@ if(key !=null){%>
         <!-- /.row -->
 
         <hr>
+        
+        <a href="Connexion.jsp"> Disconnect</a>
 
         <!-- Footer -->
         <footer>

@@ -91,7 +91,7 @@ if(key !=null){%>
             
         </header>
 
-        
+        <a href="Accueil.jsp"> Back</a>
 
         <!-- Footer -->
         <footer>

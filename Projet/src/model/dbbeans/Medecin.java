@@ -166,7 +166,7 @@ public class Medecin {
         connection = db.getConnection();
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDMAND Personne.IDM = '"+this.idM+"'");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+this.idM+"';");
             
             while(rs.next()){
             	consultations+="<tr><td>"
@@ -318,6 +318,22 @@ public class Medecin {
             System.out.println("Cant delete from customer table");
         }
         
+    }
+    
+    public void changeDate(String idCons, Date date, DataAccess db) {
+    	connection = db.getConnection();
+        try{
+            st = connection.createStatement();
+            st.executeUpdate("UPDATE CabinetDB.Consultation "
+            		+ "SET Consultation.datec = " + date.toString()
+            		+ " WHERE Consultation.idcons = '"+idCons+"';");
+            
+            rs.close();
+            st.close();
+            }catch(Exception e){
+                System.out.println("Cant read from medecin table");
+                System.out.println(e);
+            }
     }
     
 }

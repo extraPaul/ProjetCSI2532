@@ -46,6 +46,7 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
           	<h1>Modifer un patient</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <a href="accueil.jsp">Retourner a l'accueil</a>
            
         	
         	<br>

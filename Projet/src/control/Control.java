@@ -16,7 +16,7 @@ public class Control extends HttpServlet
     private HttpSession s;
 
     
-    private void processAction(HttpServletRequest request,HttpServletResponse response) 
+    private void processLogIn(HttpServletRequest request,HttpServletResponse response) 
     		throws ServletException, IOException
     {
     	s = request.getSession(true);
@@ -32,7 +32,7 @@ public class Control extends HttpServlet
         {    
          //Get patient string should maybe only be done when needed?
          System.out.println();
-         System.out.println(medecin.getPatientsString(db));
+         System.out.println(medecin.getPatientsString(medecin_ID, db));
          
          
             s.setAttribute("Medecin", medecin);
@@ -61,17 +61,39 @@ public class Control extends HttpServlet
             }
             
         }
+    
+    private void processActionPatient(HttpServletRequest request,HttpServletResponse response) 
+    		throws ServletException, IOException
+    {
+    	String idmed = request.getParameter("drInput");
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+        med.getPatientsString(idmed, db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+        r2.forward(request,response);
+    }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
-        processAction(request,response);
+    	if (request.getParameter("logIn") != null) {
+    	    processLogIn(request,response);
+    	}
+    	else if (request.getParameter("drInputSubmit") != null){
+            processActionPatient(request,response); 
+        }
     }
     
     public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
         Medecin med = (Medecin) s.getAttribute("Medecin");
-        med.getPatientsString(db);
+        //med.getPatientsString(db);
         s.setAttribute("Medecin", med);
+    }
+    
+    public void test(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("FUCK YEAH!!!!");
+	    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
+        rd.forward(request,response);
     }
     
     public void destroy()

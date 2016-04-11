@@ -98,12 +98,12 @@ public class Medecin {
         return patient;
     }
     
-    public String getPatientsString(DataAccess db) {
+    public String getPatientsString(String idmed, DataAccess db) {
         connection = db.getConnection();
         
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+this.idM+"';");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+idmed+"';");
         }catch(Exception e){
             System.out.println("Cant read from Personne or Patient table");
             System.out.println(e);
@@ -133,11 +133,11 @@ public class Medecin {
                         +"</td><td>"
                         + rs.getString("sexe")
                         +"</td><td>"
-                        + rs.getString("<form action='Control' type='POST'>"
+                        + "<form action='Control' type='POST'>"
                         			+  "<select> <option name='patVoirPrescription'>Voir prescriptions</option>"
                         			+  			"<option name='modifierPatinfo'>Modifier</option></select>"
                         			+  			"<option name='supprimerPatList'>Supprimer</option></select>"
-                        			+  			"<button name='auOptPatGo'>Go</button></form>")
+                        			+  			"<button name='auOptPatGo'>Go</button></form>"
                         + "</td></tr>";
             }
         }catch(Exception e){

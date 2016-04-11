@@ -134,8 +134,9 @@ public class Medecin {
                         + rs.getString("sexe")
                         +"</td><td>"
                         + "<form action='Control' type='POST'>"
-                        			+  "<select> <option name='patVoirPrescription'>Voir prescriptions</option>"
-                        			+  			"<option name='modifierPatinfo'>Modifier</option></select>"
+                        			+  "<select name='patAuxSelect'> "
+                        			+ 			"<option name='patVoirPrescription'>Voir prescriptions</option>"
+                        			+  			"<option name='modifierPatinfo'>Modifier</option>"
                         			+  			"<option name='supprimerPatList'>Supprimer</option></select>"
                         			+  			"<button name='auOptPatGo'>Go</button></form>"
                         + "</td></tr>";
@@ -168,11 +169,11 @@ public class Medecin {
     }
     
     //En théorie on pourrait conbinné cette fonction et getConsultations.
-    public String getConsultationsString(DataAccess db) {
+    public String getConsultationsString(String idMed, DataAccess db) {
         connection = db.getConnection();
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+this.idM+"';");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+idMed+"';");
             
             while(rs.next()){
             	consultations+="<tr><td>"
@@ -187,11 +188,12 @@ public class Medecin {
                         + rs.getString("raison")
                         +"</td><td>"
                         +"<form action='Control' type='POST'>"
-                    	+  "<select> <option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
-                    	+  "<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
-                    	+  "<option name='modifierConsultinfo'>Modifier</option>"
-                    	+  "<option name='supprimerConsultList'>Supprimer</option></select>"
-                    	+  "<button name='auOptConsultGo'>Go</button></form>"
+                    	+  "<select name='consultAuxSelect'> "
+                    	+  		"<option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
+                    	+  		"<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
+                    	+  		"<option name='modifierConsultinfo'>Modifier</option>"
+                    	+  		"<option name='supprimerConsultList'>Supprimer</option></select>"
+                    	+  		"<button name='auOptConsultGo'>Go</button></form>"
                         + "</td></tr>";
             }
             

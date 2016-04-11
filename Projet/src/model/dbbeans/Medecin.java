@@ -188,7 +188,7 @@ public class Medecin {
                         +"</td><td>"
                         +"<form action='Control' type='POST'>"
                     	+  "<select> <option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
-                    	+  " <option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
+                    	+  "<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
                     	+  "<option name='modifierConsultinfo'>Modifier</option>"
                     	+  "<option name='supprimerConsultList'>Supprimer</option></select>"
                     	+  "<button name='auOptConsultGo'>Go</button></form>"

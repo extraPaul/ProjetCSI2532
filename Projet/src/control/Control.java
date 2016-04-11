@@ -32,7 +32,7 @@ public class Control extends HttpServlet
         {    
          //Get patient string should maybe only be done when needed?
          System.out.println();
-         System.out.println(medecin.getPatientsString(medecin_ID, db));
+         //System.out.println(medecin.getPatientsString(medecin_ID, db));
          
          
             s.setAttribute("Medecin", medecin);
@@ -72,6 +72,16 @@ public class Control extends HttpServlet
     	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
         r2.forward(request,response);
     }
+    
+    private void processActionMyPatient(HttpServletRequest request,HttpServletResponse response) 
+    		throws ServletException, IOException
+    {
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+        med.getPatientsString(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+        r2.forward(request,response);
+    }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
@@ -81,12 +91,16 @@ public class Control extends HttpServlet
     	else if (request.getParameter("drInputSubmit") != null){
             processActionPatient(request,response); 
         }
+    	else if (request.getParameter("openPatients") != null){
+            processActionMyPatient(request,response); 
+        }
+    	
     }
     
     public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
         Medecin med = (Medecin) s.getAttribute("Medecin");
-        //med.getPatientsString(db);
+        med.getPatientsString(med.getIDM(), db);
         s.setAttribute("Medecin", med);
     }
     

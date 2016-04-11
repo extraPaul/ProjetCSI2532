@@ -100,7 +100,7 @@ public class Medecin {
     
     public String getPatientsString(String idmed, DataAccess db) {
         connection = db.getConnection();
-        
+        patients = "";
         try{
             st = connection.createStatement();
             rs  = st.executeQuery("SELECT  * FROM CabinetDB.personne,CabinetDB.patient WHERE Personne.IDP = Patient.IDPat AND Patient.IDM = '"+idmed+"';");

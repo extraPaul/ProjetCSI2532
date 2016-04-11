@@ -134,8 +134,9 @@ public class Medecin {
                         + rs.getString("sexe")
                         +"</td><td>"
                         + "<form action='Control' type='POST'>"
-                        			+  "<select name='patAuxSelect'> <option name='patVoirPrescription'>Voir prescriptions</option>"
-                        			+  			"<option name='modifierPatinfo'>Modifier</option></select>"
+                        			+  "<select name='patAuxSelect'> "
+                        			+ 			"<option name='patVoirPrescription'>Voir prescriptions</option>"
+                        			+  			"<option name='modifierPatinfo'>Modifier</option>"
                         			+  			"<option name='supprimerPatList'>Supprimer</option></select>"
                         			+  			"<button name='auOptPatGo'>Go</button></form>"
                         + "</td></tr>";
@@ -187,11 +188,12 @@ public class Medecin {
                         + rs.getString("raison")
                         +"</td><td>"
                         +"<form action='Control' type='POST'>"
-                    	+  "<select name='consultAuxSelect'> <option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
-                    	+  "<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
-                    	+  "<option name='modifierConsultinfo'>Modifier</option>"
-                    	+  "<option name='supprimerConsultList'>Supprimer</option></select>"
-                    	+  "<button name='auOptConsultGo'>Go</button></form>"
+                    	+  "<select name='consultAuxSelect'> "
+                    	+  		"<option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
+                    	+  		"<option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
+                    	+  		"<option name='modifierConsultinfo'>Modifier</option>"
+                    	+  		"<option name='supprimerConsultList'>Supprimer</option></select>"
+                    	+  		"<button name='auOptConsultGo'>Go</button></form>"
                         + "</td></tr>";
             }
             

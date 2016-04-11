@@ -47,6 +47,7 @@ if(key !=null){%>
             <h1>Welcome to PAJME</h1>
             <p>PAJME is a medical information platform and stands for Paul, Alex, Jon Medical Encoding. </p>
             <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <a href="Accueil.jsp">Retourner a l'accueil</a>
             
             <p>View another doctor's patients:</p>
             <form action="Control" method="post" >

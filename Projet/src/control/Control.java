@@ -115,6 +115,9 @@ public class Control extends HttpServlet
     }
 
     private void modifyPatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
+    	Patient pat = new Patient();
+    	pat.findAttributes(idPat, db);
+    	s.setAttribute("Patient", pat);
     	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/ModPatient.jsp");
         r.forward(request,response);
     }
@@ -173,49 +176,31 @@ public class Control extends HttpServlet
     
     private void modifyPatient(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
     	Medecin med = (Medecin) s.getAttribute("Medecin");
+    	Patient pat = (Patient) s.getAttribute("Patient");
     	
-    	Connection connection = db.getConnection();
-        String id = "P000";        
+    	Connection connection = db.getConnection();       
 
         try {
         	Statement st = connection.createStatement();
-
-        	ResultSet rs  = st.executeQuery("SELECT max(idpat) as id FROM CabinetDB.Patient");
-            rs.next();
-            
-            String max_id = rs.getString(1);
-            id = "P" + Integer.toString(Integer.parseInt(max_id.substring(1)) + 1);
-    		while(id.length() < 4){
-    			id = "P0" + id.substring(1);
-    		}
             
     		st.executeUpdate("UPDATE CabinetDB.Personne"
     				+ " SET nom = '" + (String)request.getParameter("ModPatNom")
     				+ "', prenom = '" + (String)request.getParameter("ModPatPrenom")
     				+ "', num = '" + (String)request.getParameter("ModPatNum")
-    				+ "', rue = '" + (String)request.getParameter("ModPatNom")
-    				+ "', ville = '" + (String)request.getParameter("ModPatNom")
-    				+ "', prenom = '" + (String)request.getParameter("ModPatNom")
-    				+ "', prenom = '" + (String)request.getParameter("ModPatNom"));
-            
-            st.executeUpdate("INSERT INTO CabinetDB.Personne VALUES ('"+id+"','"
-            		+ (String)request.getParameter("AddPatNom") + "', '"
-            		+ (String)request.getParameter("AddPatPrenom") + "', '"
-            		+ (String)request.getParameter("AddPatNum") + "', '"
-            		+ (String)request.getParameter("AddPatRue") + "', '"
-            		+ (String)request.getParameter("AddPatVille") + "', '"
-            		+ (String)request.getParameter("AddPatNumTel") + "');");
-            
-            st.executeUpdate("INSERT INTO CabinetDB.Patient VALUES ('"+id+"','"
-            		+ (String)request.getParameter("AddPatNas") + "', '"
-            		+ (String)request.getParameter("AddPatDateN") + "', '"
-            		+ (String)request.getParameter("AddPatSexe") + "', '"
-            		+  med.getIDM() + "');");
+    				+ "', rue = '" + (String)request.getParameter("ModPatRue")
+    				+ "', ville = '" + (String)request.getParameter("ModPatVille")
+    				+ "', numTelephone = '" + (String)request.getParameter("ModPatNumTel")
+    				+ "' WHERE idP = '" + pat.getIdP() + "';");
+    		
+    		st.executeUpdate("UPDATE CabinetDB.Patient"
+    				+ " SET sexe = '" + (String)request.getParameter("ModPatSexe")
+    				+ "' WHERE idP = '" + pat.getIdP() + "';");
 
-            rs.close();
+            //rs.close();
             st.close();
         }catch(Exception e){
-            System.out.println("Cant insert into customer table");
+            System.out.println("Cant insert into Personne table");
+            System.out.println(e);
         }
     	
     	

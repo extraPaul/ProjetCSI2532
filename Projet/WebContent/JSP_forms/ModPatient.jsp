@@ -46,14 +46,14 @@ if(key !=null){%>
         <header class="jumbotron hero-spacer">
           	<h1>Modifer un patient</h1>
             <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-            <a href="accueil.jsp">Retourner a l'accueil</a>
+            <a href="Accueil.jsp">Retourner a l'accueil</a>
            
         	
         	<br>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom"> </td></tr>
+        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom" value= <jsp:getProperty name="Patient" property="name" />> </td></tr>
         			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom"> </td></tr>
         			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum"> </td></tr>
         			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue"> </td></tr>

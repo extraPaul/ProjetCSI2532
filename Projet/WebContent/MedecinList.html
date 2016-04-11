@@ -4,7 +4,7 @@
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
-   System.out.println("Opening Consultation List");
+   System.out.println("Opening Patient List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
@@ -42,76 +42,61 @@ if(key !=null){%>
 
     <!-- Page Content -->
     <div class="container">
-
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Consultation information</h1>
+          	<h1>Medecin Info</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
-            
-            <p>Consultations</p>
+<!--             <p>View another doctor's patients (by ID):</p> -->
+<!--             <form action="Control" method="post" ><input type="text" name="drInput"> <button name="drInputSubmit">View patient list</button></form> -->
+            <p>Medecins</p>
         	<table border = 1>
-        		
         	<tr>
         		<td class="hockeyPads">
-        			idConsultation
+        			idM
         		</td>
         		<td class="hockeyPads">
-        			Date
+        			Nom
         		</td>
         		<td class="hockeyPads">
-        			Temps
+        			Prenom
         		</td>
         		<td class="hockeyPads">
-        			Durée
+        			Num
         		</td>
         		<td class="hockeyPads">
-        			Raison
+        			Rue
         		</td>
         		<td class="hockeyPads">
-        			Autres actions
+        			Ville
         		</td>
+        		<td class="hockeyPads">
+        			numTelephone
+        		</td>
+        		<td class="hockeyPads">
+        			NAS
+        		</td>
+        		<td class="hockeyPads">
+        			dateNaissance
+        		</td>
+        		<td class="hockeyPads">
+        			Sexe
+        		</td>
+        		<td class="hockeyPads">
+        			Specialité
+        		</td>
+        		</td>
+        		<td class="hockeyPads">
+        			Autres Actions
+        		</td>
+        		
         	</tr>
-<!--         	<tr> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			C001 -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExDate -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExTemps -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExDurée -->
-<!--         		</td> -->
-<!--         		<td class="hockeyPads"> -->
-<!--         			ExRaison -->
-<!--         		</td><td class="hockeyPads"> -->
-<!--         			<form action="Control" type="POST"> -->
-<!--         			<select><option>Type 1</option><option>Type 2</option></select><button>Ajout</button> -->
-<!--         			</form> -->
-<!--         		</td> -->
-<!--         	</tr> -->
+
+
         	
-<!--         	<jsp:getProperty name="Medecin" property="patients" /> -->
-        	</table>
-            
-<!--         	<br><br> -->
-<!--              <p>Add a prescription by consultation ID:</p> -->
-<!--             <form action="Control" method="post" > -->
-<!--             	<select><option>Examen</option><option>Medicament</option></select> -->
-<!--            		<input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button> -->
-<!--             </form> -->
-            
-<!--             <br><br> -->
-<!--              <p>Modify a consultation by ID:</p> -->
-<!--             <form action="Control" method="post" ><input type="text" name="ConsultModInput"> <button name="ConsultModSubmit">Modify</button></form> -->
-            
-<!--             <br><br> -->
-<!--              <p>Delete a consultation by ID:</p> -->
-<!--             <form action="Control" method="post" ><input type="text" name="ConsultDelInput"> <button name="ConsultDelSubmit">Delete</button></form> -->
+        	<jsp:getProperty name="Medecin" property="patients" />
+        	</table> 
         
             
             

@@ -136,7 +136,8 @@ public class Medecin {
                         + rs.getString("<form action='Control' type='POST'>"
                         			+  "<select> <option name='patVoirPrescription'>Voir prescriptions</option>"
                         			+  			"<option name='modifierPatinfo'>Modifier</option></select>"
-                        			+  			"<button name='supprimerPatList'>Go</button></form>")
+                        			+  			"<option name='supprimerPatList'>Supprimer</option></select>"
+                        			+  			"<button name='auOptPatGo'>Go</button></form>")
                         + "</td></tr>";
             }
         }catch(Exception e){
@@ -184,7 +185,12 @@ public class Medecin {
                         + rs.getInt("duree")
                         +"</td><td>"
                         + rs.getString("raison")
-                        +"</td></tr>";
+                        + rs.getString("<form action='Control' type='POST'>"
+                    			+  "<select> <option  name='consultAddPrescription'>Ajouter prescriptions</option>"
+                    			+  			"<option name='modifierConsultinfo'>Modifier</option></select>"
+                    			+  			"<option name='supprimerConsultList'>Supprimer</option></select>"
+                    			+  			"<button name='auOptConsultGo'>Go</button></form>")
+                        + "</td></tr>";
             }
             
             rs.close();

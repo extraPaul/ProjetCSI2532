@@ -187,7 +187,8 @@ public class Medecin {
                         + rs.getString("raison")
                         +"</td><td>"
                         +"<form action='Control' type='POST'>"
-                    	+  "<select> <option  name='consultAddPrescription'>Ajouter prescriptions</option>"
+                    	+  "<select> <option  name='consultAddPrescriptionMed'>Ajouter prescription medicament</option>"
+                    	+  "<select> <option  name='consultAddPrescriptionExam'>Ajouter prescription examen</option>"
                     	+  "<option name='modifierConsultinfo'>Modifier</option></select>"
                     	+  "<option name='supprimerConsultList'>Supprimer</option></select>"
                     	+  "<button name='auOptConsultGo'>Go</button></form>"

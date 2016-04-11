@@ -13,7 +13,6 @@ if(key !=null){%>
 
 <head>
 <!-- to recommit -->
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,27 +43,22 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Modify a patient</h1>
+          	<h1>Add a prescription</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-           
+           <a href="accueil.jsp">Retourner a l'accueil</a>
+            <br><br>
         	
         	<br>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idPatient:</td>		    <td><input type="text" name="ModPatId"> </td></tr>
-        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom"> </td></tr>
-        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom"> </td></tr>
-        			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum"> </td></tr>
-        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue"> </td></tr>
-        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModPatVille"> </td></tr>
-        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModPatNumTel"> </td></tr>
-        			<tr><td>NAS:</td>	 			<td><input type="text" name="ModPatNas"> </td></tr>
-        			<tr><td>dateNaissance:</td>	    <td><input type="text" name="ModPatDateN"> </td></tr>
-        			<tr><td>Sexe:</td>	 			<td><input type="text" name="ModPatSexe"> </td></tr>
+        			<tr><td>idPres:</td>		    <td><input type="text" name="AddPresMedId"> </td></tr>
+        			<tr><td>idCons:</td>	 			<td><input type="text" name="AddPresIdCons"> </td></tr>
+        			<tr><td>idMed :</td>	 		<td><input type="text" name="AddPresMedIdMed"> </td></tr>
+        			<tr><td>Duree :</td>	 		<td><input type="text" name="AddPresMedDuree"> </td></tr>
             		</table>
             		<br>
-            		<button name="ModPatSubmit">Submit</button>
+            		<button name="AddPresMedSubmit">Submit</button>
             </form>
 
         

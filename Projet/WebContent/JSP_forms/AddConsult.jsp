@@ -44,27 +44,23 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Modify a patient</h1>
+          	<h1>Add a consultation</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-           
+           <a href="accueil.jsp">Retourner a l'accueil</a>
+            <br><br>
         	
         	<br>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idPatient:</td>		    <td><input type="text" name="ModPatId"> </td></tr>
-        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom"> </td></tr>
-        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom"> </td></tr>
-        			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum"> </td></tr>
-        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue"> </td></tr>
-        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModPatVille"> </td></tr>
-        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModPatNumTel"> </td></tr>
-        			<tr><td>NAS:</td>	 			<td><input type="text" name="ModPatNas"> </td></tr>
-        			<tr><td>dateNaissance:</td>	    <td><input type="text" name="ModPatDateN"> </td></tr>
-        			<tr><td>Sexe:</td>	 			<td><input type="text" name="ModPatSexe"> </td></tr>
+        			<tr><td>idConsult:</td>		    <td><input type="text" name="AddConsultId"> </td></tr>
+        			<tr><td>Date:</td>	 			<td><input type="text" name="AddConsultNom"> </td></tr>
+        			<tr><td>Temps :</td>	 		<td><input type="text" name="AddConsultPrenom"> </td></tr>
+        			<tr><td>Durée:</td>	 			<td><input type="text" name="AddConsultNum"> </td></tr>
+        			<tr><td>Raison:</td>	 			<td><input type="text" name="AddConsultRue"> </td></tr>
             		</table>
             		<br>
-            		<button name="ModPatSubmit">Submit</button>
+            		<button name="AddConsultSubmit">Submit</button>
             </form>
 
         

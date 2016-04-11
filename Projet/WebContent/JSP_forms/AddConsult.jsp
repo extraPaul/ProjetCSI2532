@@ -53,7 +53,6 @@ if(key !=null){%>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idConsult:</td>		    <td><input type="text" name="AddConsultId"> </td></tr>
         			<tr><td>Date:</td>	 			<td><input type="text" name="AddConsultNom"> </td></tr>
         			<tr><td>Temps :</td>	 		<td><input type="text" name="AddConsultPrenom"> </td></tr>
         			<tr><td>Durée:</td>	 			<td><input type="text" name="AddConsultNum"> </td></tr>

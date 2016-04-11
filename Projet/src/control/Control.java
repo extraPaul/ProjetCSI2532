@@ -55,7 +55,7 @@ public class Control extends HttpServlet
             rd.forward(request,response);
         }
             else{
-             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Connexion.jsp");
+            	RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Connexion.jsp");
                 rd.forward(request,response);
           
             }
@@ -92,7 +92,20 @@ public class Control extends HttpServlet
     	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
         r2.forward(request,response);
     }
+    
+    private void deletePatient(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+    	
+    }
+    
+    private void openPatientPrescriptions(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+    	
+    }
 
+    private void modifyPatient(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/ModPatient.jsp");
+        r.forward(request,response);
+    }
+    
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
     	if (request.getParameter("logIn") != null) {
@@ -108,10 +121,23 @@ public class Control extends HttpServlet
     		processActionMyConsultation(request,response); 
         }
     	else if (request.getParameter("auOptPatGo") != null){
-    		String action = (String)request.getParameter("action");
+    		//String action = request.getParameterValues("patAuxSelect")[0];
+    		String action = (String)request.getParameter("patAuxSelect");
+    		String idPat = action.split(" ")[0];
+    		
     		System.out.println(action);
-    		RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
-            r2.forward(request,response);
+    		
+    		switch(action.split(" ")[1]){
+    		case "patVoirPrescription":
+    			openPatientPrescriptions(request,response);
+    			break;
+    		case "modifierPatinfo":
+    			modifyPatient(request,response,idPat);
+    			break;
+			case "supprimerPatList":
+				deletePatient(request,response);
+				break;
+    		}
     	}
     	
     }

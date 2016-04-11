@@ -1,9 +1,9 @@
+
 <meta http-equiv="Cache-Control" content="no-cache" />
 
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
-   System.out.println("Opening Consultation List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
@@ -12,6 +12,7 @@ if(key !=null){%>
 <html lang="en">
 
 <head>
+<!-- to recommit -->
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,10 +23,10 @@ if(key !=null){%>
     <title>PAJME</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/heroic-features.css" rel="stylesheet">
+    <link href="../css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,45 +44,29 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Consultation information</h1>
+          	<h1>Modify a patient</h1>
             <p><a href="help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-            <p>View another doctor's consultations (by ID):</p>
-            <form action="Control" method="POST"><input type="text" name="drConsultInput"><input type="submit" name="btnConsultImputSubmit" value="View patient list"></form>
-            <p>Consultations</p>
-        	<table border = 1>
-        		
-        	<tr>
-        		<td class="hockeyPads">
-        			idConsultation
-        		</td>
-        		<td class="hockeyPads">
-        			Date
-        		</td>
-        		<td class="hockeyPads">
-        			Temps
-        		</td>
-        		<td class="hockeyPads">
-        			Durée
-        		</td>
-        		<td class="hockeyPads">
-        			Raison
-        		</td>
-        	</tr>
+           
         	
-         	<jsp:getProperty name="Medecin" property="consultations" />
-        	</table>
-            
-        	<br><br>
-             <p>Add a prescription by consultation ID:</p>
-            <form action="Control" method="post" ><input type="text" name="PatPrescAddInput"> <button name="PatPrescAddSubmit">Open Form</button></form>
-            
-            <br><br>
-             <p>Modify a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultModInput"> <button name="ConsultModSubmit">Modify</button></form>
-            
-            <br><br>
-             <p>Delete a consultation by ID:</p>
-            <form action="Control" method="post" ><input type="text" name="ConsultDelInput"> <button name="ConsultDelSubmit">Delete</button></form>
+        	<br>
+             
+            <form action="Control" method="post" >
+            		<table>
+        			<tr><td>idPatient:</td>		    <td><input type="text" name="ModPatId"> </td></tr>
+        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom"> </td></tr>
+        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom"> </td></tr>
+        			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum"> </td></tr>
+        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue"> </td></tr>
+        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModPatVille"> </td></tr>
+        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModPatNumTel"> </td></tr>
+        			<tr><td>NAS:</td>	 			<td><input type="text" name="ModPatNas"> </td></tr>
+        			<tr><td>dateNaissance:</td>	    <td><input type="text" name="ModPatDateN"> </td></tr>
+        			<tr><td>Sexe:</td>	 			<td><input type="text" name="ModPatSexe"> </td></tr>
+            		</table>
+            		<br>
+            		<button name="ModPatSubmit">Submit</button>
+            </form>
+
         
             
             

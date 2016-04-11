@@ -16,11 +16,10 @@ public class Medecin {
     private String consultations;
     
     public Medecin() {
-    	patients = "";
+    	
     }
     
     public Medecin(String idm, String nom, String prenom) {
-    	patients = "";
     	this.idM = idm;
     	this.nom = nom;
     	this.prenom = prenom;
@@ -135,10 +134,10 @@ public class Medecin {
                         +"</td><td>"
                         + "<form action='Control' type='POST'>"
                         			+  "<select name='patAuxSelect'> "
-                        			+ 			"<option name='patVoirPrescription'>Voir prescriptions</option>"
-                        			+  			"<option name='modifierPatinfo'>Modifier</option>"
-                        			+  			"<option name='supprimerPatList'>Supprimer</option></select>"
-                        			+  			"<button name='auOptPatGo'>Go</button></form>"
+                        			+ 			"<option name='"+ rs.getString("IDPat")+" patVoirPrescription'>Voir prescriptions</option>"
+                        			+  			"<option name='"+ rs.getString("IDPat")+" modifierPatinfo'>Modifier</option>"
+                        			+  			"<option name='"+ rs.getString("IDPat")+" supprimerPatList'>Supprimer</option></select>"
+                        			+  			"<input type='submit' name='auOptPatGo' value='Go'></form>"
                         + "</td></tr>";
             }
         }catch(Exception e){
@@ -171,9 +170,10 @@ public class Medecin {
     //En théorie on pourrait conbinné cette fonction et getConsultations.
     public String getConsultationsString(String idMed, DataAccess db) {
         connection = db.getConnection();
+        consultations = "";
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+idMed+"';");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.medecin = Personne.IDP AND Personne.IDP = '"+idMed+"';");
             
             while(rs.next()){
             	consultations+="<tr><td>"
@@ -183,7 +183,7 @@ public class Medecin {
                         +"</td><td>"
                         + rs.getString("heure")
                         +"</td><td>"
-                        + rs.getInt("duree")
+                        + rs.getDate("duree")
                         +"</td><td>"
                         + rs.getString("raison")
                         +"</td><td>"

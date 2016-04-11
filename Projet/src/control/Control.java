@@ -82,6 +82,16 @@ public class Control extends HttpServlet
     	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
         r2.forward(request,response);
     }
+    
+    private void processActionMyConsultation(HttpServletRequest request,HttpServletResponse response) 
+    		throws ServletException, IOException
+    {
+        Medecin med = (Medecin) s.getAttribute("Medecin");
+        med.getConsultationsString(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
+        r2.forward(request,response);
+    }
 
     public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
@@ -95,10 +105,14 @@ public class Control extends HttpServlet
             processActionMyPatient(request,response); 
         }
     	else if (request.getParameter("openConsultation") != null){
-    		//CREATE ACTION pour consultation.
-            processActionMyPatient(request,response); 
+    		processActionMyConsultation(request,response); 
         }
-    	
+    	else if (request.getParameter("auOptPatGo") != null){
+    		String action = (String)request.getParameter("action");
+    		System.out.println(action);
+    		RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+            r2.forward(request,response);
+    	}
     	
     }
     

@@ -169,11 +169,11 @@ public class Medecin {
     }
     
     //En théorie on pourrait conbinné cette fonction et getConsultations.
-    public String getConsultationsString(DataAccess db) {
+    public String getConsultationsString(String idMed, DataAccess db) {
         connection = db.getConnection();
         try{
             st = connection.createStatement();
-            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+this.idM+"';");
+            rs  = st.executeQuery("SELECT  * FROM CabinetDB.Personne, CabinetDB.Consultation WHERE Consultation.IDM = Personne.IDM AND Personne.IDM = '"+idMed+"';");
             
             while(rs.next()){
             	consultations+="<tr><td>"

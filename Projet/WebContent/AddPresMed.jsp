@@ -4,17 +4,15 @@
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
-   System.out.println("Opening Patient List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
-<jsp:useBean id="Patient"  class="model.dbbeans.Patient" scope="session" />
+
  
 <html lang="en">
 
 <head>
 <!-- to recommit -->
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,46 +40,27 @@ if(key !=null){%>
 
     <!-- Page Content -->
     <div class="container">
+
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Patient's prescriptions</h1>
-            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-            <a href="accueil.jsp">Retourner a l'accueil</a>
-<br><br>
-            <p>Prescriptions de <jsp:getProperty name="Patient" property="idP" /><br>
-            <jsp:getProperty name="Patient" property="prenom" /> <jsp:getProperty name="Patient" property="nom" /></p>
-        	<table border = 1>
-        	<tr>
-        		<td>
-        			idPres
-        		</td>
-        		<td>
-        			idCons
-        		</td>
-        		<td>
-        			Durée de validité
-        		</td>
-        		<td>
-        			idMedicament
-        		</td>
-        	</tr>
-        	<jsp:getProperty name="Patient" property="prescriptionsMed" />
-        	</table> 
+          	<h1>Add a prescription</h1>
+            <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+           <a href="ConsultList.jsp">Retourner arrière</a>
+            <br><br>
         	
-        	<table border = 1>
-        	<tr>
-        		<td>
-        			idPres
-        		</td>
-        		<td>
-        			idCons
-        		</td>
-        		<td>
-        			Nom
-        		</td>
-        	</tr>
-        	<jsp:getProperty name="Patient" property="prescriptionsExam" />
-        	</table> 
+        	<br>
+             
+            <form action="Control" method="post" >
+            		<table>
+        			<tr><td>idMed :</td>	 		<td><input type="text" name="AddPresMedIdMed"> </td></tr>
+        			<tr><td>Durée :</td>	 		<td><input type="text" name="AddPresMedDuree"> </td></tr>
+            		</table>
+            		<br>
+            		<input type="submit" name="AddPresMedSubmit" value="Submit">
+            </form>
+
+        
+            
             
         </header>
 

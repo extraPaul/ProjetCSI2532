@@ -18,8 +18,8 @@ public class Patient {
 	    private String nas;  
 	    private Date dateNaissance;
 	    private String sexe;
-	    private String prescriptionsExam;
-	    private String prescriptionsMed;
+	    private String presExam;
+	    private String presMed;
 	    
 	    public Patient(){
 	    	
@@ -138,11 +138,11 @@ public class Patient {
 		public void setSexe(String sexe) {
 			this.sexe = sexe;
 		}
-		public String getPrescriptionsExam(){
-			return prescriptionsExam;
+		public String getPresExam(){
+			return presExam;
 		}
-		public String getPrescriptionsMed(){
-			return prescriptionsMed;
+		public String getPresMed(){
+			return presMed;
 		}
 		
 		public ArrayList<Prescription> getPrescriptions(DataAccess db) {
@@ -151,13 +151,13 @@ public class Patient {
 	        try{
 	            st = connection.createStatement();
 	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presexamen pE, CabinetDB.consultation c WHERE p.consultation = c.idcons"
-	            		+ "AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"'");
+	            		+ " AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"';");
 	            while(rs.next()){
 	            	pres.add(new PresExam(rs.getString("idprese"), rs.getString("idcons"), rs.getString("nom")));
 	            }
 	            
 	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presmedicament pM, CabinetDB.consultation c WHERE p.consultation = c.idcons"
-	            		+ "AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"'");
+	            		+ " AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"';");
 	            while(rs.next()){
 	            	pres.add(new PresMed(rs.getString("idpresm"), rs.getString("idcons"), rs.getDate("duréevalidite"), rs.getString("idmed")));
 	            }
@@ -172,16 +172,15 @@ public class Patient {
 		
 		public String getPrescriptionsExamen(DataAccess db) {
 	        Connection connection = db.getConnection();
-	        prescriptionsExam = "";
+	        presExam = "";
 	        try{
 	            st = connection.createStatement();
-	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presexamen pE, CabinetDB.consultation c WHERE p.consultation = c.idcons"
-	            		+ "AND p.idpres = pE.idprese AND c.patient = '"+this.idP+"');");
+	            rs = st.executeQuery("SELECT  pE.* "
+	            		+ "FROM CabinetDB.prescription p, CabinetDB.presexamen pE, CabinetDB.consultation c "
+	            		+ "WHERE p.consultation = c.idcons AND p.idpres = pE.idprese AND c.patient = '"+ this.idP +"';");
 	            while(rs.next()){
-	            	prescriptionsExam+="<tr><td>"
-	                        + rs.getString("idpress")
-	                        + "</td><td>"
-	                        + rs.getString("idcons")
+	            	presExam+="<tr><td>"
+	                        + rs.getString("idprese")
 	                        +"</td><td>"
 	                        + rs.getString("nom")
 	                        +"</td></tr>";
@@ -192,25 +191,23 @@ public class Patient {
 	                System.out.println("Cant read from Personne or Patient table");
 	                System.out.println(e);
 	            }
-	        return prescriptionsExam;
+	        return presExam;
 	    }
 		
 		public String getPrescriptionsMed(DataAccess db) {
 	        Connection connection = db.getConnection();
-	        prescriptionsMed = "";
+	        presMed = "";
 	        try{
 	            st = connection.createStatement();
-	            rs  = st.executeQuery("SELECT  * FROM CabinetDB.prescription p, CabinetDB.presmedicament pM, CabinetDB.consultation c WHERE p.consultation = c.idcons"
-	            		+ "AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"');");
+	            rs  = st.executeQuery("SELECT  pM.* FROM CabinetDB.prescription p, CabinetDB.presmedicament pM, CabinetDB.consultation c WHERE p.consultation = c.idcons"
+	            		+ " AND p.idpres = pM.idpresm AND c.patient = '"+this.idP+"';");
 	            while(rs.next()){
-	            	prescriptionsMed+="<tr><td>"
+	            	presMed+="<tr><td>"
 	                        + rs.getString("idpresm")
 	                        + "</td><td>"
-	                        + rs.getString("idcons")
-	                        +"</td><td>"
 	                        + rs.getString("duréevalidite")
 	                        +"</td><td>"
-	                        + rs.getInt("idmed")
+	                        + rs.getString("idmed")
 	                        +"</td></tr>";
 	            }
 	            rs.close();
@@ -219,7 +216,7 @@ public class Patient {
 	                System.out.println("Cant read from Personne or Patient table");
 	                System.out.println(e);
 	            }
-	        return prescriptionsExam;
+	        return presMed;
 	    }
 		
 		//Optionnelle...? Ajouter autres attribus? 

@@ -9,7 +9,7 @@ public class Consultation {
 	private ResultSet rs;
 	private String idCons;
 	private Date date;
-	private Time time;
+	private Time heure;
 	private Time duree;
 	private String raison;
 	
@@ -20,11 +20,34 @@ public class Consultation {
 	public Consultation(String idCons, Date date, Time time, Time duree, String raison){
 		this.setIdCons(idCons);
 		this.setDate(date);
-		this.setTime(time);
+		this.setHeure(time);
 		this.setDuree(duree);
 		this.setRaison(raison);
 		
 	}
+	
+	public void findAttributesConsultation(String idcons, DataAccess db) {
+        Connection connection = db.getConnection();
+        try{
+            st = connection.createStatement();
+            rs  = st.executeQuery("SELECT * FROM CabinetDB.consultation WHERE idcons = '"+idcons+"';");
+            
+            if(rs.next()){
+            	this.idCons = idcons;
+            	this.date = rs.getDate("datec");
+            	this.heure = rs.getTime("heure");
+            	this.duree = rs.getTime("duree");
+            	this.raison = rs.getString("raison");        	
+            }
+            
+            rs.close();
+            st.close();
+            
+            }catch(Exception e){
+                System.out.println("Cant read from patient table");
+                System.out.println(e);
+            }
+    }
 
 	public String getIdCons() {
 		return idCons;
@@ -42,12 +65,12 @@ public class Consultation {
 		this.date = date;
 	}
 
-	public Time getTime() {
-		return time;
+	public Time getHeure() {
+		return heure;
 	}
 
-	public void setTime(Time time) {
-		this.time = time;
+	public void setHeure(Time time) {
+		this.heure = time;
 	}
 
 	public Time getDuree() {

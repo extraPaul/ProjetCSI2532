@@ -23,10 +23,10 @@ if(key !=null){%>
     <title>PAJME</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/heroic-features.css" rel="stylesheet">
+    <link href="css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,8 +44,8 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Add a consultation</h1>
-            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+          	<h1>Add a patient</h1>
+            <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
            <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
         	
@@ -53,13 +53,18 @@ if(key !=null){%>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>Date:</td>	 			<td><input type="text" name="AddConsultNom"> </td></tr>
-        			<tr><td>Temps :</td>	 		<td><input type="text" name="AddConsultPrenom"> </td></tr>
-        			<tr><td>Durée:</td>	 			<td><input type="text" name="AddConsultNum"> </td></tr>
-        			<tr><td>Raison:</td>	 			<td><input type="text" name="AddConsultRue"> </td></tr>
+        			<tr><td>Nom:</td>	 			<td><input type="text" name="AddPatNom"> </td></tr>
+        			<tr><td>Prenom:</td>	 		<td><input type="text" name="AddPatPrenom"> </td></tr>
+        			<tr><td>Num:</td>	 			<td><input type="text" name="AddPatNum"> </td></tr>
+        			<tr><td>Rue:</td>	 			<td><input type="text" name="AddPatRue"> </td></tr>
+        			<tr><td>Ville:</td>	 			<td><input type="text" name="AddPatVille"> </td></tr>
+        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="AddPatNumTel"> </td></tr>
+        			<tr><td>NAS:</td>	 			<td><input type="text" name="AddPatNas"> </td></tr>
+        			<tr><td>dateNaissance:</td>	    <td><input type="text" name="AddPatDateN"> </td></tr>
+        			<tr><td>Sexe:</td>	 			<td><input type="text" name="AddPatSexe"> </td></tr>
             		</table>
             		<br>
-            		<button name="AddConsultSubmit">Submit</button>
+            		<input type='submit' name='AddPatSubmit' value='Submit'>
             </form>
 
         

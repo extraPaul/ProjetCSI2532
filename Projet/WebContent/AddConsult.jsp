@@ -13,6 +13,7 @@ if(key !=null){%>
 
 <head>
 <!-- to recommit -->
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,10 +23,10 @@ if(key !=null){%>
     <title>PAJME</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/heroic-features.css" rel="stylesheet">
+    <link href="../css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,20 +44,22 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Add a prescription</h1>
-            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-           <a href="ConsultList.jsp">Retourner arrière</a>
+          	<h1>Add a consultation</h1>
+            <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+           <a href="accueil.jsp">Retourner a l'accueil</a>
             <br><br>
         	
         	<br>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>idMed :</td>	 		<td><input type="text" name="AddPresMedIdMed"> </td></tr>
-        			<tr><td>Durée :</td>	 		<td><input type="text" name="AddPresMedDuree"> </td></tr>
+        			<tr><td>Date:</td>	 			<td><input type="text" name="AddConsultNom"> </td></tr>
+        			<tr><td>Temps :</td>	 		<td><input type="text" name="AddConsultPrenom"> </td></tr>
+        			<tr><td>Durée:</td>	 			<td><input type="text" name="AddConsultNum"> </td></tr>
+        			<tr><td>Raison:</td>	 			<td><input type="text" name="AddConsultRue"> </td></tr>
             		</table>
             		<br>
-            		<input type="submit" name="AddPresMedSubmit" value="Submit">
+            		<button name="AddConsultSubmit">Submit</button>
             </form>
 
         

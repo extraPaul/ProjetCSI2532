@@ -17,7 +17,7 @@ public class Medecin {
     private String numTelephone; 
     private String idM;
     private String info;
-    private String Specialite;
+    private String specialite;
     private String SpecialiteInfo;
     private String medecins;
     private String InfoMed;
@@ -95,7 +95,7 @@ public class Medecin {
             	this.rue = rs.getString("Rue");
             	this.ville = rs.getString("Ville");
             	this.numTelephone = rs.getString("numTelephone");
-            	this.SpecialiteInfo = rs.getString("spécialite");
+            	this.specialite = rs.getString("spécialite");
             	
             }
             
@@ -213,7 +213,7 @@ public class Medecin {
                         +"</td><td>"
                         + rs.getString("heure")
                         +"</td><td>"
-                        + rs.getDate("duree")
+                        + rs.getTime("duree")
                         +"</td><td>"
                         + rs.getString("raison")
                         +"</td><td>"
@@ -454,11 +454,11 @@ public class Medecin {
 	}
 
 	public String getSpecialite() {
-		return Specialite;
+		return specialite;
 	}
 
 	public void setSpecialite(String specialite) {
-		Specialite = specialite;
+		this.specialite = specialite;
 	}
 
 	public String getSpecialiteInfo() {

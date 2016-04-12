@@ -32,17 +32,10 @@ public class Control extends HttpServlet
 
         if (medecin != null)
         {    
-         //Get patient string should maybe only be done when needed?
-         System.out.println();
-         //System.out.println(medecin.getPatientsString(medecin_ID, db));
          
          
             s.setAttribute("Medecin", medecin);
-            //For testing
-            ArrayList<Patient> patients = medecin.getPatients(db);
-            for(int i = 0; i < patients.size(); i++){
-             System.out.println(patients.get(i).toString());
-            }
+            
             ///SESION
             s.setAttribute("key", medecin_ID);
             s.setMaxInactiveInterval(1000);
@@ -99,7 +92,6 @@ public class Control extends HttpServlet
     		throws ServletException, IOException
     {
     	String idmed = request.getParameter("drConsultInput");
-    	System.out.println(idmed);
     	Medecin med = (Medecin) s.getAttribute("Medecin");
     	med.getConsultationsString(idmed, db);
         s.setAttribute("Medecin", med);
@@ -139,11 +131,10 @@ public class Control extends HttpServlet
     private void openPatientPrescriptions(HttpServletRequest request,HttpServletResponse response, String idPat) throws ServletException, IOException{
     	Patient pat = new Patient();
     	pat.findAttributes(idPat, db);
-    	pat.getPrescriptionsExam();
-    	pat.getPrescriptionsMed();
-    	System.out.println(pat.getPrescriptionsMed());
+    	pat.getPrescriptionsExamen(db);
+    	pat.getPrescriptionsMed(db);
     	s.setAttribute("Patient", pat);
-    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/ViewPrescriptions.jsp");
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/ViewPrescriptions.jsp");
         r.forward(request,response);
     }
 
@@ -151,7 +142,7 @@ public class Control extends HttpServlet
     	Patient pat = new Patient();
     	pat.findAttributes(idPat, db);
     	s.setAttribute("Patient", pat);
-    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/ModPatient.jsp");
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/ModPatient.jsp");
         r.forward(request,response);
     }
     
@@ -173,8 +164,6 @@ public class Control extends HttpServlet
     			id = "P0" + id.substring(1);
     		}
             
-
-            System.out.println("ID: "+ id);
             st.executeUpdate("INSERT INTO CabinetDB.Personne VALUES ('"+id+"','"
             		+ (String)request.getParameter("AddPatNom") + "', '"
             		+ (String)request.getParameter("AddPatPrenom") + "', '"
@@ -204,7 +193,7 @@ public class Control extends HttpServlet
     }
     
     private void addPatientForm(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPat.jsp");
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/AddPat.jsp");
         r.forward(request,response);
     }
     
@@ -253,20 +242,13 @@ public class Control extends HttpServlet
         try {
         	Statement st = connection.createStatement();
             
-    		/*st.executeUpdate("UPDATE CabinetDB.Personne"
-    				+ " SET nom = '" + (String)request.getParameter("ModPatNom")
-    				+ "', prenom = '" + (String)request.getParameter("ModPatPrenom")
-    				+ "', num = '" + (String)request.getParameter("ModPatNum")
-    				+ "', rue = '" + (String)request.getParameter("ModPatRue")
-    				+ "', ville = '" + (String)request.getParameter("ModPatVille")
-    				+ "', numTelephone = '" + (String)request.getParameter("ModPatNumTel")
-    				+ "' WHERE Personne.idP = '" + pat.getIdP() + "';");
-    		
-    		st.executeUpdate("UPDATE CabinetDB.Patient"
-    				+ " SET sexe = '" + (String)request.getParameter("ModPatSexe")
-    				+ "' WHERE Patient.idPat = '" + pat.getIdP() + "';");*/
+    		st.executeUpdate("UPDATE CabinetDB.Consultation"
+    				+ " SET datec = '" + (String)request.getParameter("ModConsultDate")
+    				+ "', heure = '" + (String)request.getParameter("ModConsultTemps")
+    				+ "', duree = '" + (String)request.getParameter("ModConsultDuree")
+    				+ "', raison = '" + (String)request.getParameter("ModConsultRaison")
+    				+ "' WHERE Consultation.idCons = '" + cons.getIdCons() + "';");
 
-            //rs.close();
             st.close();
         }catch(Exception e){
             System.out.println("Cant insert into Personne table");
@@ -274,9 +256,42 @@ public class Control extends HttpServlet
         }
     	
     	
-        med.getPatientsString(med.getIDM(), db);
+        med.getConsultationsString(med.getIDM(), db);
         s.setAttribute("Medecin", med);
-    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/PatientList.jsp");
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
+        r.forward(request,response);
+    }
+    
+    private void modifyMedecin(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+    	Medecin med = (Medecin) s.getAttribute("Medecin");
+    	
+    	Connection connection = db.getConnection();       
+
+        try {
+        	Statement st = connection.createStatement();
+            
+    		st.executeUpdate("UPDATE CabinetDB.Personne"
+    				+ " SET nom = '" + (String)request.getParameter("ModMedNom")
+    				+ "', prenom = '" + (String)request.getParameter("ModMedPrenom")
+    				+ "', num = '" + (String)request.getParameter("ModMedNum")
+    				+ "', rue = '" + (String)request.getParameter("ModMedRue")
+    				+ "', ville = '" + (String)request.getParameter("ModMedVille")
+    				+ "', numTelephone = '" + (String)request.getParameter("ModMedNumTel")
+    				+ "' WHERE Personne.idP = '" + med.getIDM() + "';");
+    		
+    		st.executeUpdate("UPDATE CabinetDB.Medecin"
+    				+ " SET spécialite = '" + (String)request.getParameter("ModMedSpe")
+    				+ "' WHERE Medecin.idM = '" + med.getIDM() + "';");
+
+            st.close();
+        }catch(Exception e){
+            System.out.println("Cant insert into Personne table");
+            System.out.println(e);
+        }
+    	
+    	med.findAttributes(med.getIDM(), db);
+        s.setAttribute("Medecin", med);
+    	RequestDispatcher r = this.getServletContext().getRequestDispatcher("/Accueil.jsp");
         r.forward(request,response);
     }
     
@@ -298,14 +313,12 @@ public class Control extends HttpServlet
     	} else if (request.getParameter("drConsultInput") != null){
             processActionConsultation(request,response);   		
     	} else if (request.getParameter("ModMedSubmit") != null){
-    		//processActionUpdateInfoMedecin(request,response);   		
+    		modifyMedecin(request,response);   		
     	} else if (request.getParameter("openInfo") != null){
     		processActionOpenMedecin(request,response);
     	} else if (request.getParameter("auOptPatGo") != null){
     		String action = (String)request.getParameter("patAuxSelect");
     		String idPat = action.split(" ")[0];
-    		
-    		System.out.println(action);
     		
     		switch(action.split(" ")[1]){
     		case "patVoirPrescription":
@@ -329,20 +342,20 @@ public class Control extends HttpServlet
     		String idCons = action.split(" ")[0];
     		
     		Consultation cons = new Consultation();
-    		cons.setIdCons(idCons);
+    		cons.findAttributesConsultation(idCons, db);;
     		s.setAttribute("Consultation", cons);
     		RequestDispatcher r;
     		switch(action.split(" ")[1]){
     		case "consultAddPrescriptionMed":
-    			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresMed.jsp");
+    			r = this.getServletContext().getRequestDispatcher("/AddPresMed.jsp");
     	        r.forward(request,response);
     			break;
     		case "consultAddPrescriptionExam":
-    			r = this.getServletContext().getRequestDispatcher("/JSP_forms/AddPresExam.jsp");
+    			r = this.getServletContext().getRequestDispatcher("/AddPresExam.jsp");
     	        r.forward(request,response);
     			break;
 			case "modifierConsultinfo":
-		    	r = this.getServletContext().getRequestDispatcher("/JSP_forms/ModConsult.jsp");
+		    	r = this.getServletContext().getRequestDispatcher("/ModConsult.jsp");
 		        r.forward(request,response);
 				break;
 			case "supprimerConsultList":
@@ -373,7 +386,7 @@ public class Control extends HttpServlet
     		RequestDispatcher r2 = this.getServletContext().getRequestDispatcher("/ConsultList.jsp");
             r2.forward(request,response);
         } else if (request.getParameter("ModConsultSubmit") != null){
-    		//modifyPatient(request,response);
+    		modifyConsultation(request,response);
         }
     	
     }

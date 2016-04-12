@@ -44,7 +44,7 @@ if(key !=null){%>
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
           	<h1>Consultation information</h1>
-            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
             <a href="Accueil.jsp">Retourner a l'accueil</a>
             <p>View another doctor's consultations (by ID):</p>
             <form action="Control" method="post" ><input type="text" name="drConsultInput"> <button name="drConsultInput">View consultation list</button></form>
@@ -66,6 +66,9 @@ if(key !=null){%>
         		</td>
         		<td class="hockeyPads">
         			Raison
+        		</td>
+        		<td class="hockeyPads">
+        			Patient
         		</td>
         	</tr>
         	

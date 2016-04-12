@@ -7,7 +7,8 @@
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
-<jsp:useBean id="Patient"  class="model.dbbeans.Patient" scope="session" />
+<jsp:useBean id="Consultation"  class="model.dbbeans.Consultation" scope="session" />
+
  
 <html lang="en">
 
@@ -44,25 +45,22 @@ if(key !=null){%>
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Modifer un patient</h1>
-            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-            <a href="Accueil.jsp">Retourner a l'accueil</a>
-           
+          	<h1>Modify a consultation</h1>
+            <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+           <a href="Accueil.jsp">Retourner a l'accueil</a>
+            <br><br>
         	
         	<br>
              
             <form action="Control" method="post" >
             		<table>
-        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModPatNom" value= <jsp:getProperty name="Patient" property="nom" />> </td></tr>
-        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModPatPrenom" value= <jsp:getProperty name="Patient" property="prenom" />> </td></tr>
-        			<tr><td>Num:</td>	 			<td><input type="text" name="ModPatNum" value= <jsp:getProperty name="Patient" property="num" />> </td></tr>
-        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModPatRue" value= <jsp:getProperty name="Patient" property="rue" />> </td></tr>
-        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModPatVille" value= <jsp:getProperty name="Patient" property="ville" />> </td></tr>
-        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModPatNumTel" value= <jsp:getProperty name="Patient" property="numTelephone" />> </td></tr>
-        			<tr><td>Sexe:</td>	 			<td><input type="text" name="ModPatSexe" value= <jsp:getProperty name="Patient" property="sexe" />> </td></tr>
+        			<tr><td>Date:</td>	 			<td><input type="text" name="ModConsultDate" value=<jsp:getProperty name="Consultation" property="date" />> </td></tr>
+        			<tr><td>Temps :</td>	 		<td><input type="text" name="ModConsultTemps" value=<jsp:getProperty name="Consultation" property="heure" />> </td></tr>
+        			<tr><td>Durée:</td>	 			<td><input type="text" name="ModConsultDuree" value=<jsp:getProperty name="Consultation" property="duree" />> </td></tr>
+        			<tr><td>Raison:</td>	 		<td><input type="text" name="ModConsultRaison" value=<jsp:getProperty name="Consultation" property="raison" />> </td></tr>
             		</table>
             		<br>
-            		<input type="submit" name="ModPatSubmit" value="Submit">
+            		<input type="submit" name="ModConsultSubmit" value="Submit">
             </form>
 
         

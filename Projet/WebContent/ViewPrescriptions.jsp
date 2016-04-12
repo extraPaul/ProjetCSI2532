@@ -4,10 +4,11 @@
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
+   System.out.println("Opening Patient List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
-
+<jsp:useBean id="Patient"  class="model.dbbeans.Patient" scope="session" />
  
 <html lang="en">
 
@@ -41,26 +42,41 @@ if(key !=null){%>
 
     <!-- Page Content -->
     <div class="container">
-
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Add a prescription</h1>
-            <p><a href="html/help.html" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-           <a href="accueil.jsp">Retourner a l'accueil</a>
-            <br><br>
-        	
+          	<h1>Patient's prescriptions</h1>
+            <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
+            <a href="accueil.jsp">Retourner a l'accueil</a>
+<br><br>
+            <p>Prescriptions de <jsp:getProperty name="Patient" property="idP" /><br>
+            <jsp:getProperty name="Patient" property="prenom" /> <jsp:getProperty name="Patient" property="nom" /></p>
+        	<table border = 1>
+        	<tr>
+        		<td>
+        			idPres
+        		</td>
+        		<td>
+        			Durée de validité
+        		</td>
+        		<td>
+        			idMedicament
+        		</td>
+        	</tr>
+        	<jsp:getProperty name="Patient" property="presMed" />
+        	</table> 
         	<br>
-             
-            <form action="Control" method="post" >
-            		<table>
-        			<tr><td>Name :</td>	 		<td><input type="text" name="AddPresExamNom"> </td></tr>
-            		</table>
-            		<br>
-            		<input type="submit" name="AddPresExamSubmit" value="Submit">
-            </form>
-
-        
-            
+        	<br>
+        	<table border = 1>
+        	<tr>
+        		<td>
+        			idPres
+        		</td>
+        		<td>
+        			Nom
+        		</td>
+        	</tr>
+        	<jsp:getProperty name="Patient" property="presExam" />
+        	</table> 
             
         </header>
 

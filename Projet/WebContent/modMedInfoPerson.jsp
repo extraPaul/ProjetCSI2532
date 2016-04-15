@@ -4,11 +4,10 @@
 
  <% session = request.getSession(false);
    String key=(String) session.getAttribute("key");
-   System.out.println("Opening Patient List");
 
 if(key !=null){%>
 <jsp:useBean id="Medecin"  class="model.dbbeans.Medecin" scope="session" />
-<jsp:useBean id="Patient"  class="model.dbbeans.Patient" scope="session" />
+
  
 <html lang="en">
 
@@ -42,41 +41,31 @@ if(key !=null){%>
 
     <!-- Page Content -->
     <div class="container">
+
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-          	<h1>Patient's prescriptions</h1>
+          	<h1>Modifier info personnelle</h1>
             <p><a href="HelpAccueil.jsp" class="btn btn-primary btn-large">New here? Click here for help!</a></p>
-            <a href="Accueil.jsp">Retourner a l'accueil</a>
-<br><br>
-            <p>Prescriptions de <jsp:getProperty name="Patient" property="idP" /><br>
-            <jsp:getProperty name="Patient" property="prenom" /> <jsp:getProperty name="Patient" property="nom" /></p>
-        	<table border = 1>
-        	<tr>
-        		<td>
-        			idPres
-        		</td>
-        		<td>
-        			Durée de validité
-        		</td>
-        		<td>
-        			idMedicament
-        		</td>
-        	</tr>
-        	<jsp:getProperty name="Patient" property="presMed" />
-        	</table> 
+           
+        	
         	<br>
-        	<br>
-        	<table border = 1>
-        	<tr>
-        		<td>
-        			idPres
-        		</td>
-        		<td>
-        			Nom
-        		</td>
-        	</tr>
-        	<jsp:getProperty name="Patient" property="presExam" />
-        	</table> 
+             
+            <form action="Control" method="post" >
+            		<table>
+        			<tr><td>Nom:</td>	 			<td><input type="text" name="ModMedNom" value= <jsp:getProperty name="Medecin" property="nom" />> </td></tr>
+        			<tr><td>Prenom:</td>	 		<td><input type="text" name="ModMedPrenom" value= <jsp:getProperty name="Medecin" property="prenom" />> </td></tr>
+        			<tr><td>Num:</td>	 			<td><input type="text" name="ModMedNum" value= <jsp:getProperty name="Medecin" property="num" />> </td></tr>
+        			<tr><td>Rue:</td>	 			<td><input type="text" name="ModMedRue" value= <jsp:getProperty name="Medecin" property="rue" />> </td></tr>
+        			<tr><td>Ville:</td>	 			<td><input type="text" name="ModMedVille" value= <jsp:getProperty name="Medecin" property="ville" />> </td></tr>
+        			<tr><td>numTelephone:</td>	 	<td><input type="text" name="ModMedNumTel" value= <jsp:getProperty name="Medecin" property="numTelephone" />> </td></tr>
+        			<tr><td>Specialité:</td>	 	<td><input type="text" name="ModMedSpe" value= <jsp:getProperty name="Medecin" property="specialite" />> </td></tr>
+            		</table>
+            		<br>
+            		<input type="submit" name="ModMedSubmit" value="Submit">
+            </form>
+
+        
+            
             
         </header>
 
